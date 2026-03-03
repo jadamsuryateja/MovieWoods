@@ -14,6 +14,7 @@ import Contact from "./pages/Contact";
 import ProjectDetail from "./pages/ProjectDetail";
 import NotFound from "./pages/NotFound";
 import Loader from "@/components/Loader";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,7 @@ const App = () => {
           {isAppLoading && <Loader onComplete={handleLoaderComplete} />}
 
           <BrowserRouter>
+            <ScrollToTop />
             <AnimatedRoutes />
           </BrowserRouter>
         </CursorProvider>
