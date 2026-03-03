@@ -142,8 +142,7 @@ const TriangleGridHero = () => {
                                     height: style.height,
                                     clipPath: style.clipPath,
                                     // Gap configuration using transform logic
-                                    transform: "scale(0.99) translateZ(0)",
-                                    willChange: "transform, clip-path",
+                                    transform: "scale(0.99)",
                                 }}
                                 onMouseEnter={() => {
                                     setCursorType("hover");

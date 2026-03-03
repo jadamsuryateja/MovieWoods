@@ -18,29 +18,10 @@ interface LoaderProps {
 }
 
 const Loader = ({ onComplete }: LoaderProps) => {
-    const [phase, setPhase] = useState<"dw" | "moviewoods" | "grid" | "wait">("wait");
+    const [phase, setPhase] = useState<"dw" | "moviewoods" | "grid">("dw");
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        // Preload all loader images
-        const preloadImages = async () => {
-            const promises = loaderImages.map((src) => {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.src = src;
-                    img.onload = resolve;
-                    img.onerror = resolve; // Continue even if one fails
-                });
-            });
-            await Promise.all(promises);
-            setPhase("dw");
-        };
-
-        preloadImages();
-    }, []);
-
-    useEffect(() => {
-        if (phase === "wait") return;
         // 1. DW minimizes, MOVIEWOODS expands
         const timer1 = setTimeout(() => {
             setPhase("moviewoods");
@@ -63,20 +44,25 @@ const Loader = ({ onComplete }: LoaderProps) => {
         };
     }, []);
 
-    // Optimized grid size for better performance while maintaining full coverage
     const cells = [];
-    for (let row = -2; row < 3; row++) {
-        for (let col = -2; col < 12; col++) {
+    // Generate enough rows and cols to cover large desktop screens and tall mobile screens
+    for (let row = -4; row < 4; row++) {
+        for (let col = -4; col < 12; col++) {
             cells.push({ col, row });
         }
     }
+
+    const topCells = cells.filter(c => c.row < 0);
+    const bottomCells = cells.filter(c => c.row >= 0);
 
     const renderCell = (cell: { col: number, row: number }, i: number) => {
         const isUp = (cell.col + cell.row) % 2 === 0;
         const imgSrc = loaderImages[i % loaderImages.length];
 
+        // Calculate a staggered delay based on distance from the center column
+        // The center is roughly col 4 (grid goes from -4 to 12)
         const distanceFromCenter = Math.abs(cell.col - 4) + Math.abs(cell.row);
-        const staggerDelay = distanceFromCenter * 0.04; // Slightly faster stagger
+        const staggerDelay = distanceFromCenter * 0.05;
 
         return (
             <motion.div
@@ -85,29 +71,25 @@ const Loader = ({ onComplete }: LoaderProps) => {
                 style={{
                     left: `calc((${cell.col} * var(--tri-w)) / 2)`,
                     top: `calc(${cell.row} * var(--tri-h))`,
-                    width: `calc(var(--tri-w) + 1px)`,
+                    width: `calc(var(--tri-w) + 1px)`, // Fix sub-pixel rendering gaps
                     height: `calc(var(--tri-h) + 1px)`,
                     clipPath: isUp ? "polygon(50% 0%, 0% 100%, 100% 100%)" : "polygon(0% 0%, 100% 0%, 50% 100%)",
-                    willChange: "transform, opacity",
-                    transform: "translateZ(0)", // Force GPU acceleration
                 }}
                 exit={{
-                    y: isUp ? "120vh" : "-120vh",
+                    // Zig-zag: "up" pointing triangles fly down, "down" pointing triangles fly up
+                    y: isUp ? "150vh" : "-150vh",
                     opacity: 0,
+                    scale: 0.8,
+                    rotate: isUp ? 15 : -15
                 }}
                 transition={{
-                    duration: 1.0,
+                    duration: 1.2,
                     ease: [0.76, 0, 0.24, 1],
                     delay: staggerDelay
                 }}
             >
-                <img
-                    src={imgSrc}
-                    className="w-full h-full object-cover brightness-[0.4]"
-                    alt=""
-                    loading="eager" // Ensure they are ready to show
-                />
-                <div className="absolute inset-0 bg-[#0a0a0a]/20" />
+                <img src={imgSrc} className="w-full h-full object-cover brightness-[0.4]" alt="" />
+                <div className="absolute inset-0 bg-[#0a0a0a]/20" /> {/* Subtle tint */}
             </motion.div>
         );
     };
