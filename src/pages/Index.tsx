@@ -36,32 +36,13 @@ const Index = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
-  const capabilities = [
-    {
-      title: "Visual Effects",
-      media: "/assets/capabilities/vfx.webp"
-    },
-    {
-      title: "Color Grading",
-      media: "/assets/capabilities/color.webp"
-    },
-    {
-      title: "Motion Design",
-      media: "/assets/capabilities/motion.webp"
-    },
-    {
-      title: "Sound Design",
-      media: "/assets/capabilities/sound.webp"
-    },
-  ];
-
   // Parallax for general page scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
-  // Horizontal Scroll effect
+  // Horizontal Scroll effect for Process
   const { scrollYProgress: horizontalScroll } = useScroll({
     target: horizontalRef,
   });
@@ -70,7 +51,7 @@ const Index = () => {
   return (
     <PageTransition>
       <div ref={containerRef} className="relative">
-        <h1 className="sr-only">MovieWoods — Visual Effects & Post-Production Studio</h1>
+        <h1 className="sr-only">DreamsWood VFX Studio — Visual Effects & Post-Production</h1>
 
         <SectionNavigator sections={sections} />
 
@@ -106,12 +87,12 @@ const Index = () => {
               <div className="w-[100vw] h-full flex items-center justify-center p-12 md:p-24 relative overflow-hidden">
                 <div className="w-full max-w-5xl flex gap-12 items-center">
                   <div className="flex-1 z-10">
-                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">01. Conceptualize</p>
-                    <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">
-                      Ideation <br />& Pre-viz
+                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">01. Pre-Production (VFX)</p>
+                    <h3 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">
+                      Planning & <br />Setup
                     </h3>
                     <p className="text-muted text-sm max-w-md leading-relaxed">
-                      Every great visual starts with a brilliant idea. We work closely with directors and agencies to block out scenes, define the color palette, and build robust pre-visualizations before a single frame is shot.
+                      Pre-production is the planning phase where all creative, technical, and logistical decisions are finalized. We analyze scripts, develop concepts, and plan complex shots to ensure clear communication and reduce risks before shooting begins.
                     </p>
                   </div>
                   <motion.div
@@ -127,12 +108,12 @@ const Index = () => {
               <div className="w-[100vw] h-full flex items-center justify-center p-12 md:p-24 relative overflow-hidden">
                 <div className="w-full max-w-5xl flex gap-12 items-center flex-row-reverse">
                   <div className="flex-1 z-10 text-right">
-                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">02. Execution</p>
-                    <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8">
-                      On-Set <br /><span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Supervision</span>
+                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">02. Production</p>
+                    <h3 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8">
+                      Data <br /><span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Capture</span>
                     </h3>
                     <p className="text-muted text-sm max-w-md leading-relaxed ml-auto">
-                      Our VFX supervisors embed seamlessly with your production crew. We ensure that lighting matches our digital environments, tracking markers are perfectly placed, and the shoot runs flawlessly to minimize post-production headaches.
+                      Our on-site team ensures all required visual data is captured to support seamless VFX integration. We supervise green screen setups, accurately place tracking markers, and collect lighting references, HDRI, and camera data for flawless post-production.
                     </p>
                   </div>
                   <motion.div
@@ -148,12 +129,12 @@ const Index = () => {
               <div className="w-[100vw] h-full flex items-center justify-center p-12 md:p-24 relative overflow-hidden">
                 <div className="w-full max-w-5xl flex gap-12 items-center">
                   <div className="flex-1 z-10">
-                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">03. Post</p>
-                    <h3 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-none mb-8 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">
-                      Visual <br /><span className="text-white [-webkit-text-stroke:0px] italic">Alchemy</span>
+                    <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">03. Post-Production</p>
+                    <h3 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8 text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">
+                      Core <br /><span className="text-white [-webkit-text-stroke:0px] italic">VFX Work</span>
                     </h3>
                     <p className="text-muted text-sm max-w-md leading-relaxed">
-                      This is where the magic happens. Compositing, 3D tracking, simulations, and matte painting. We blend the practical with the impossible, creating photorealistic worlds that serve the narrative.
+                      This is the core phase of the pipeline. From Rotoscoping, Paint, and Match-Moving to Lighting, Rendering, and Compositing, we transform captured footage and blend live-action with digital elements to create cohesive, emotionally engaging visuals.
                     </p>
                   </div>
                   <motion.div
@@ -172,14 +153,22 @@ const Index = () => {
                   <h3 className="text-5xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-12">
                     The Final <br /><span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Master</span>
                   </h3>
-                  <Link
-                    to="/work"
-                    className="group relative flex items-center justify-center w-32 h-32 border border-white/20 rounded-full hover:bg-white transition-colors duration-500 overflow-hidden"
-                    onMouseEnter={() => setCursorType("hover")}
-                    onMouseLeave={() => setCursorType("default")}
-                  >
-                    <span className="text-xs uppercase tracking-[0.2em] font-bold group-hover:text-black z-10 transition-colors duration-500">View Work</span>
-                  </Link>
+                  <MagneticElement strength={0.1}>
+                    <Link
+                      to="/work"
+                      className="group relative flex items-center justify-center px-12 py-5 bg-transparent border border-white/20 hover:border-primary transition-all duration-500 overflow-hidden"
+                      onMouseEnter={() => setCursorType("hover")}
+                      onMouseLeave={() => setCursorType("default")}
+                    >
+                      <span className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-background group-hover:text-white z-10 transition-colors duration-500 mix-blend-difference">
+                        VIEW WORKS
+                      </span>
+
+                      {/* Hover UI accent */}
+                      <div className="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
+                      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 delay-100" />
+                    </Link>
+                  </MagneticElement>
                 </div>
               </div>
 
@@ -188,57 +177,105 @@ const Index = () => {
         </section>
 
 
-        {/* Magnetic Capabilities List */}
-        <section id="capabilities" className="py-40 bg-background relative z-10 overflow-hidden">
+        {/* Why Dreamswood Studios Section */}
+        <section id="why-us" className="py-24 md:py-40 bg-black text-white overflow-hidden relative">
           <div className="max-w-7xl mx-auto px-6">
-            <motion.p
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-24 block"
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className="text-center mb-24 md:mb-32"
             >
-              Our Capabilities
-            </motion.p>
+              <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">The Studio Advantage</p>
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tighter">
+                Why Dreamswood<br />
+                <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Studios?</span>
+              </h2>
+            </motion.div>
 
-            <div className="flex flex-col border-t border-black/10 relative z-10 mix-blend-difference text-white">
-              {capabilities.map((cap, i) => (
-                <div
-                  key={cap.title}
-                  className="group py-8 md:py-12 border-b border-white/20 flex flex-col md:flex-row justify-between md:items-center relative"
-                  onMouseEnter={() => {
-                    setHoveredCapability(i);
-                    setCursorType("view");
-                  }}
-                  onMouseLeave={() => {
-                    setHoveredCapability(null);
-                    setCursorType("default");
-                  }}
+            <div className="flex flex-col gap-24 md:gap-40">
+              {/* Point 1: High Quality Output */}
+              <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24 group">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
                 >
-                  <MagneticElement strength={0.1}>
-                    <h4 className="text-4xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter transition-all duration-500 ease-[0.16, 1, 0.3, 1] group-hover:translate-x-8 group-hover:text-transparent group-hover:[-webkit-text-stroke:1px_white]">
-                      {cap.title}
-                    </h4>
-                  </MagneticElement>
-                  <span className="text-sm font-black uppercase tracking-[0.2em] mt-4 md:mt-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
-                    Explore
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+                  <img src="/assets/capabilities/vfx.webp" alt="High Quality Output" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  className="w-full md:w-1/2"
+                >
+                  <p className="text-9xl font-black text-white/5 absolute -translate-y-1/2 -ml-12 pointer-events-none select-none">01</p>
+                  <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight relative z-10">High-Quality Output</h3>
+                  <p className="text-lg text-white/70 leading-relaxed font-light relative z-10">
+                    Dreamswood Studios consistently delivers premium visual quality while maintaining industry standards across all projects.
+                  </p>
+                </motion.div>
+              </div>
 
-          {/* Floating Media Tracker */}
-          <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
-            {capabilities.map((cap, i) => (
-              <CapabilityMedia
-                key={cap.title}
-                cap={cap}
-                index={i}
-                hoveredCapability={hoveredCapability}
-                mouseX={mouseX}
-                mouseY={mouseY}
-              />
-            ))}
+              {/* Point 2: On-Time Delivery (Reversed) */}
+              <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-24 group">
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
+                >
+                  <img src="/assets/capabilities/color.webp" alt="On Time Delivery" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  className="w-full md:w-1/2 md:text-right"
+                >
+                  <p className="text-9xl font-black text-white/5 absolute -translate-y-1/2 md:right-0 md:-mr-12 pointer-events-none select-none">02</p>
+                  <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight relative z-10">On-Time Delivery</h3>
+                  <p className="text-lg text-white/70 leading-relaxed font-light relative z-10 md:ml-auto max-w-xl">
+                    Strong planning and an efficient production pipeline ensure projects are completed and delivered within committed timelines.
+                  </p>
+                </motion.div>
+              </div>
+
+              {/* Point 3: Budget Friendly */}
+              <div className="flex flex-col md:flex-row items-center gap-12 md:gap-24 group">
+                <motion.div
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
+                >
+                  <img src="/assets/capabilities/motion.webp" alt="Budget Friendly" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                  className="w-full md:w-1/2"
+                >
+                  <p className="text-9xl font-black text-white/5 absolute -translate-y-1/2 -ml-12 pointer-events-none select-none">03</p>
+                  <h3 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight relative z-10">Budget-Friendly Approach</h3>
+                  <p className="text-lg text-white/70 leading-relaxed font-light relative z-10">
+                    The studio balances creativity and cost efficiency, providing high-quality results without exceeding budgets.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -260,16 +297,16 @@ const Index = () => {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-xs uppercase tracking-[0.5em] font-black text-primary mb-12 inline-block px-4 py-2 border border-primary/20 rounded-full"
             >
-              The MovieWoods Ethos
+              DreamsWood VFX Studio
             </motion.p>
             <motion.h3
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] uppercase tracking-tighter mb-16"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold leading-[1.3] tracking-tighter mb-16 max-w-4xl mx-auto"
             >
-              We believe in the power of <br /><span className="text-primary italic font-black">cinematic storytelling</span><br /> to transcend the ordinary.
+              A dynamic Visual Effects and Post-Production Company that brings <span className="text-primary italic font-black">imagination</span> to life on screen.
             </motion.h3>
             <motion.div
               initial={{ width: 0 }}
@@ -320,29 +357,5 @@ const ArrowLeft = ({ size, className, style }: { size?: number, className?: stri
     <path d="m12 19-7-7 7-7" /><path d="M19 12H5" />
   </svg>
 );
-
-const CapabilityMedia = ({ cap, index, hoveredCapability, mouseX, mouseY }: any) => {
-  const xTransform = useTransform(mouseX, (x: number) => x - 200);
-  const yTransform = useTransform(mouseY, (y: number) => y - 250);
-
-  return (
-    <motion.div
-      className="absolute left-0 top-0 w-[400px] h-[500px] rounded-lg overflow-hidden mix-blend-luminosity"
-      style={{
-        x: xTransform,
-        y: yTransform,
-      }}
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{
-        opacity: hoveredCapability === index ? 1 : 0,
-        scale: hoveredCapability === index ? 1 : 0.8,
-        zIndex: hoveredCapability === index ? 10 : 0
-      }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-    >
-      <img src={cap.media} alt={cap.title} className="w-full h-full object-cover" />
-    </motion.div>
-  );
-};
 
 export default Index;

@@ -17,7 +17,7 @@ const Contact = () => {
   return (
     <PageTransition>
       <div className="pt-28 pb-20 px-6 md:px-16 min-h-screen">
-        <h1 className="sr-only">Contact MovieWoods</h1>
+        <h1 className="sr-only">Contact DreamsWood</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 max-w-6xl mx-auto">
           {/* Left - Info */}
@@ -30,25 +30,29 @@ const Contact = () => {
             <p className="text-xs uppercase tracking-[0.4em] text-primary font-semibold mb-8">Get in Touch</p>
 
             <a
-              href="mailto:hello@moviewoods.com"
+              href="mailto:hello@dreamswood.com"
               className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground hover:text-primary transition-colors duration-300 break-all leading-tight"
               data-cursor="VIEW"
             >
               hello@
               <br />
-              moviewoods
+              dreamswood
               <br />
               .com
             </a>
 
             <div className="mt-12 space-y-4">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-1">London</p>
-                <p className="text-sm text-foreground/80">14 Great Pulteney St, Soho, W1F 9NB</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-1">Phone</p>
-                <p className="text-sm text-foreground/80">+44 (0)20 7434 1888</p>
+                <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-1">Address</p>
+                <p className="text-sm text-foreground/80 leading-relaxed">
+                  Mahaveer Radiance, 1st floor
+                  <br />
+                  Opp: Metro Pillar number 1708 Madhapur,
+                  <br />
+                  Road No. 36, Jubilee Hills,
+                  <br />
+                  Telangana 500033
+                </p>
               </div>
             </div>
           </motion.div>

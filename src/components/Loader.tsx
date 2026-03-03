@@ -159,7 +159,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
                                 transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
                             >
                                 <h1 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-none text-white whitespace-nowrap drop-shadow-2xl">
-                                    MOVIEWOODS
+                                    DREAMSWOOD
                                 </h1>
                             </motion.div>
                         </div>

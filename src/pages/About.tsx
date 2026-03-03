@@ -1,119 +1,330 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { useRef, useEffect } from "react";
 import PageTransition from "@/components/PageTransition";
 import { teamMembers } from "@/data/works";
+import MagneticElement from "@/components/MagneticElement";
+import { useCursor } from "@/context/CursorContext";
 
 const FadeSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-80px" }}
-    transition={{ duration: 0.8, ease: [0.22, 1, 0.3, 1] }}
+    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
     className={className}
   >
     {children}
   </motion.div>
 );
 
-const About = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
+const WordHighlight = ({ text }: { text: string }) => {
+  const container = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
+    target: container,
+    offset: ["start 0.9", "start 0.25"],
   });
-  const heroOpacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+
+  const words = text.split(" ");
+  return (
+    <h3 ref={container} className="text-2xl md:text-5xl font-bold leading-[1.2] flex flex-wrap gap-x-[0.3em] gap-y-2">
+      {words.map((word, i) => {
+        const start = i / words.length;
+        const end = start + 1 / words.length;
+        return <HighlightWord key={i} range={[start, end]} progress={scrollYProgress}>{word}</HighlightWord>;
+      })}
+    </h3>
+  );
+};
+
+const HighlightWord = ({ children, range, progress }: { children: React.ReactNode; range: [number, number]; progress: any }) => {
+  const opacity = useTransform(progress, range, [0.1, 1]);
+  return (
+    <motion.span style={{ opacity }} className="text-white relative">
+      {children}
+    </motion.span>
+  );
+};
+
+const About = () => {
+  const { setCursorType } = useCursor();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+
+  // Parallax typography scale and translate
+  const scaleText = useTransform(scrollYProgress, [0, 0.3], [1, 1.5]);
+  const rotateText = useTransform(scrollYProgress, [0, 0.3], [0, -5]);
 
   return (
     <PageTransition>
-      <h1 className="sr-only">About MovieWoods</h1>
+      <div ref={containerRef} className="relative bg-[#0a0a0a] text-white overflow-hidden">
+        {/* Cinematic Grid Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '100px 100px',
+          }} />
 
-      {/* Hero */}
-      <motion.section
-        ref={heroRef}
-        style={{ opacity: heroOpacity, y: heroY }}
-        className="h-screen flex items-center justify-center px-6"
-      >
-        <div className="text-center max-w-3xl">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="text-xs uppercase tracking-[0.4em] text-primary font-bold mb-6"
+        <h1 className="sr-only">About DreamsWood VFX Studio</h1>
+
+        {/* --- Hero Section with Parallax Background Text --- */}
+        <motion.section
+          ref={heroRef}
+          style={{ opacity: heroOpacity, y: heroY }}
+          className="relative h-screen flex items-center justify-center px-6 overflow-hidden"
+        >
+          {/* Drifting Background Text */}
+          <motion.div
+            style={{ scale: scaleText, rotate: rotateText }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.02]"
           >
-            Est. 2008 — London
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight leading-[0.9]"
-          >
-            Crafting the
-            <br />
-            <span className="text-primary">impossible</span>
-          </motion.h2>
-        </div>
-      </motion.section>
+            <h2 className="text-[50vw] font-black uppercase tracking-tighter text-white leading-none">
+              ABOUT
+            </h2>
+          </motion.div>
 
-      {/* Story sections */}
-      <section className="px-6 md:px-16 max-w-5xl mx-auto space-y-32 pb-20">
-        <FadeSection>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Our Story</p>
-          <h3 className="text-2xl md:text-4xl font-bold leading-snug mb-6">
-            We are a team of artists, technicians, and storytellers who believe in the power of visual narrative.
-          </h3>
-          <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-2xl">
-            Founded in 2008, MovieWoods has grown from a boutique VFX house to one of the most respected
-            post-production studios in the world. We combine cutting-edge technology with artistic vision to
-            deliver work that transcends expectations.
-          </p>
-        </FadeSection>
-
-        <FadeSection>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">Philosophy</p>
-          <h3 className="text-2xl md:text-4xl font-bold leading-snug mb-6">
-            Every frame is an opportunity. Every pixel, a decision.
-          </h3>
-          <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-2xl">
-            We don't just execute briefs — we elevate them. Our multidisciplinary approach ensures that
-            every project receives the full spectrum of our creative and technical expertise, from concept
-            through final delivery.
-          </p>
-        </FadeSection>
-
-        {/* Team */}
-        <FadeSection>
-          <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold mb-4">The Team</p>
-          <h3 className="text-2xl md:text-4xl font-bold leading-snug mb-12">Meet the people behind the pixels</h3>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-            {teamMembers.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.5 }}
-                className="group relative aspect-[3/4] bg-secondary overflow-hidden"
+          <div className="text-center max-w-4xl relative z-10">
+            <motion.p
+              initial={{ opacity: 0, letterSpacing: "1em" }}
+              animate={{ opacity: 1, letterSpacing: "0.4em" }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+              className="text-[10px] md:text-xs uppercase text-primary font-bold mb-8"
+            >
+              Beyond the frame
+            </motion.p>
+            <div className="overflow-hidden">
+              <motion.h2
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="text-5xl md:text-7xl lg:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] mb-2"
               >
-                {/* B&W placeholder with initials */}
-                <div className="absolute inset-0 flex items-center justify-center bg-secondary grayscale group-hover:grayscale-0 transition-all duration-700">
-                  <span className="text-5xl md:text-6xl font-black text-muted-foreground/20 group-hover:text-primary/30 transition-colors duration-500 select-none">
-                    {member.initials}
-                  </span>
+                DreamsWood
+              </motion.h2>
+            </div>
+            <div className="overflow-hidden">
+              <motion.h2
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ delay: 0.1, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className="text-5xl md:text-7xl lg:text-[7rem] font-black uppercase tracking-tighter leading-[0.85] italic text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.4)]"
+              >
+                VFX Studios
+              </motion.h2>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* --- Content Sections --- */}
+        <div className="relative z-10 space-y-48 md:space-y-64 pb-40">
+
+          {/* Leadership Section - Redesigned Asymmetric */}
+          <section className="px-6 md:px-24">
+            <div className="max-w-7xl mx-auto">
+              {teamMembers.map((member) => (
+                <div key={member.name} className="relative w-full pt-20">
+
+                  {/* Background Accents */}
+                  <div className="absolute top-0 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
+                  {/* Editorial Grid Layout */}
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+
+                    {/* Left Typography Block */}
+                    <div className="lg:col-span-7 relative z-10 flex flex-col justify-center">
+                      <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-6">Leadership</p>
+
+                      <motion.h3
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                        className="text-5xl md:text-7xl lg:text-[6rem] font-black uppercase tracking-tighter leading-[0.85] mb-6"
+                      >
+                        {member.name}
+                      </motion.h3>
+
+                      <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ delay: 0.4, duration: 1 }}
+                        className="text-lg md:text-2xl font-light italic text-white/50 mb-10 tracking-[0.1em]"
+                      >
+                        {member.role}
+                      </motion.p>
+
+                      <div className="space-y-6 text-white/60 text-sm font-mono uppercase tracking-widest leading-relaxed max-w-xl pl-4 border-l border-primary/30">
+                        <p>{member.bio}</p>
+                        <p>Extensive experience collaborating with global production teams, directors, and studios, ensuring creative vision is translated into technically flawless visuals while meeting tight deadlines and budgets.</p>
+                      </div>
+
+                      <div className="mt-12">
+                        <MagneticElement strength={0.2}>
+                          <button
+                            onMouseEnter={() => setCursorType("hover")}
+                            onMouseLeave={() => setCursorType("default")}
+                            className="group inline-flex items-center gap-6"
+                          >
+                          </button>
+                        </MagneticElement>
+                      </div>
+                    </div>
+
+                    {/* Right Image Block - Smaller & Creative */}
+                    <div className="lg:col-span-5 relative mt-12 lg:mt-0 flex justify-end">
+
+                      {/* Decorative Outline Frame */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.9, rotate: -3 }}
+                        whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 1.2, delay: 0.2 }}
+                        className="absolute -top-8 -right-8 md:-top-12 md:-right-12 w-[80%] aspect-[3/4] border border-white/10 z-0 hidden md:block"
+                      />
+
+
+                      {/* Main Image Container */}
+                      <motion.div
+                        initial={{ clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }}
+                        whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                        className="relative w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] overflow-hidden bg-black/40 z-10 shadow-2xl"
+                      >
+                        {member.image && (
+                          <motion.img
+                            src={member.image}
+                            alt={member.name}
+                            className="w-full h-full object-cover transition-all duration-[2s] hover:scale-110 cursor-none"
+                            onMouseEnter={() => setCursorType("view")}
+                            onMouseLeave={() => setCursorType("default")}
+                          />
+                        )}
+                        {/* Overlay Gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                      </motion.div>
+
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Story with Highlight Reveal & Core Services */}
+          <section className="px-6 md:px-24">
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="lg:col-span-4">
+                <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Our Narrative</p>
+              </div>
+              <div className="lg:col-span-8">
+                <WordHighlight text="DreamsWood VFX Studio is a dynamic Visual Effects and Post-Production Company that brings imagination to life on screen. The studio specializes in delivering high-quality visual effects for film, digital media, commercials, and streaming content." />
+
+                <p className="mt-12 text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest mb-16">
+                  With a strong focus on precision, creativity, and storytelling, Dreams Wood VFX transforms creative ideas into visually stunning cinematic experiences. At the heart of the studio is a team of skilled artists and technicians dedicated to excellence in every frame.
+                </p>
+
+                <div className="space-y-12">
+                  <h4 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-white">Core Services</h4>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
+                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Rotoscoping (Roto)</h5>
+                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Frame-by-frame isolation of elements for seamless integration.</p>
+                    </div>
+
+                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
+                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Paint/Prep</h5>
+                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Cleaning up footage by removing unwanted elements like rigs or imperfections.</p>
+                    </div>
+
+                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
+                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Compositing</h5>
+                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Blending live-action and digital elements to create cohesive, emotionally engaging visuals.</p>
+                    </div>
+
+                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
+                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Matchmove & Tracking</h5>
+                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Aligning CG elements perfectly with real camera motion for realistic effects.</p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Info overlay */}
-                <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-background/90 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                  <p className="text-sm font-bold text-foreground">{member.name}</p>
-                  <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-1">{member.role}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </FadeSection>
-      </section>
+                <p className="mt-16 text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest italic border-l-2 border-primary pl-6">
+                  Driven by passion and technical expertise, Dreams Wood VFX Studio helps filmmakers, creators, and brands turn their visions into unforgettable on-screen moments.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          {/* Philosophy Section */}
+          <section className="px-6 md:px-24 flex items-center justify-center">
+            <div className="max-w-4xl text-center">
+              <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Philosophy</p>
+              <FadeSection>
+                <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-[1.1] mb-12">
+                  Combining <span className="text-primary italic">artistic</span> talent with <br />cutting-edge technology.
+                </h3>
+                <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-mono uppercase tracking-widest">
+                  Beyond our core services, the studio also works on 3D modeling, animation, rendering, and high-end tracking to enhance storytelling for projects of all sizes.
+                </p>
+              </FadeSection>
+            </div>
+          </section>
+
+          {/* Why Dreamswood Cards */}
+          <section className="px-6 md:px-24 max-w-7xl mx-auto">
+            <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-16 text-center">Why Dreamswood Studios?</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  title: "High-Quality Output",
+                  desc: "Dreamswood Studios consistently delivers premium visual quality while maintaining industry standards across all projects."
+                },
+                {
+                  title: "On-Time Delivery",
+                  desc: "Strong planning and an efficient production pipeline ensure projects are completed and delivered within committed timelines."
+                },
+                {
+                  title: "Budget-Friendly",
+                  desc: "The studio balances creativity and cost efficiency, providing high-quality results without exceeding budgets."
+                }
+              ].map((item, i) => (
+                <FadeSection key={i} className="group relative p-8 md:p-12 bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-500 overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-500" />
+                  <h4 className="text-xl md:text-2xl font-bold mb-6 uppercase tracking-tighter group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h4>
+                  <p className="text-white/50 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider">
+                    {item.desc}
+                  </p>
+                  <div className="absolute -bottom-8 -right-8 text-white/[0.03] text-[10rem] font-black group-hover:text-white/[0.05] transition-colors pointer-events-none">
+                    0{i + 1}
+                  </div>
+                </FadeSection>
+              ))}
+            </div>
+          </section>
+
+        </div>
+
+        {/* Floating Decorative Typography */}
+        <motion.div
+          style={{ y: useTransform(scrollYProgress, [0, 1], ["0%", "50%"]) }}
+          className="fixed top-0 right-0 h-screen flex items-center z-[-1] opacity-[0.02] pointer-events-none"
+        >
+          <h4 className="text-[40vh] md:text-[80vh] font-black uppercase tracking-tighter rotate-90 origin-center text-white leading-none whitespace-nowrap">
+            VFX STUDIO
+          </h4>
+        </motion.div>
+      </div>
     </PageTransition>
   );
 };

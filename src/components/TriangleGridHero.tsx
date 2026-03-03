@@ -1,5 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useCursor } from "@/context/CursorContext";
 import { Play, ArrowRight, ArrowUp, ArrowDown, Facebook, Instagram, Twitter } from "lucide-react";
 
@@ -7,14 +8,17 @@ import { Play, ArrowRight, ArrowUp, ArrowDown, Facebook, Instagram, Twitter } fr
 
 const getTriangleStyle = (col: number, row: number) => {
     const isUp = (col + row) % 2 === 0;
+    // gap % logic to create true inner margins on the triangles instead of scaling
+    // which caused unequal vertical/horizontal gaps
+    const gap = 1.5;
     return {
         left: `calc((${col} * var(--tri-w)) / 2)`,
         top: `calc(${row} * var(--tri-h))`,
         width: `var(--tri-w)`,
         height: `var(--tri-h)`,
         clipPath: isUp
-            ? "polygon(50% 0%, 0% 100%, 100% 100%)"
-            : "polygon(0% 0%, 100% 0%, 50% 100%)",
+            ? `polygon(50% ${gap * 1.5}%, ${gap}% ${100 - gap}%, ${100 - gap}% ${100 - gap}%)`
+            : `polygon(${gap}% ${gap}%, ${100 - gap}% ${gap}%, 50% ${100 - gap * 1.5}%)`,
         isUp
     };
 };
@@ -67,22 +71,39 @@ const activeCells = [
 const TriangleGridHero = () => {
     const { setCursorType } = useCursor();
     const [activeColor, setActiveColor] = useState("#111111");
+    const [currentSlide, setCurrentSlide] = useState(0);
     const containerRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
     const yTransform = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+
+    // Mobile Slideshow Logic
+    const mobileImages = [
+        "/assets/hero/sands.webp",
+        "/assets/hero/neon.webp",
+        "/assets/hero/titan.webp",
+        "/assets/hero/omega.webp",
+        "/assets/hero/contact.webp"
+    ];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % mobileImages.length);
+        }, 4000); // Change image every 4 seconds
+        return () => clearInterval(interval);
+    }, [mobileImages.length]);
 
     return (
         <section ref={containerRef} className="relative w-full min-h-screen overflow-hidden pt-0 m-0 bg-[#0a0a0a]">
             {/* Responsive Grid CSS Variables */}
             <style>{`
                 .tri-grid {
-                    --tri-w: 48vw;
-                    --tri-h: 55vw;
+                    --tri-w: 38vw;
+                    --tri-h: 44vw;
                 }
                 @media (min-width: 768px) {
                     .tri-grid {
-                        --tri-w: 22vw;
-                        --tri-h: 25vw;
+                        --tri-w: 16vw;
+                        --tri-h: 18vw;
                     }
                 }
             `}</style>
@@ -126,8 +147,8 @@ const TriangleGridHero = () => {
                 }}
             />
 
-            {/* Triangles Grid Layer */}
-            <motion.div style={{ y: yTransform }} className="absolute inset-0 pointer-events-none z-10 block">
+            {/* Desktop Triangles Grid Layer (Hidden on Mobile) */}
+            <motion.div style={{ y: yTransform }} className="absolute inset-0 pointer-events-none z-10 hidden md:block">
                 <div className="tri-grid relative w-full h-full transform translate-x-[-15vw] md:translate-x-[5vw] -translate-y-[5vw]">
                     {activeCells.map((cell, i) => {
                         const style = getTriangleStyle(cell.col, cell.row);
@@ -141,8 +162,8 @@ const TriangleGridHero = () => {
                                     width: style.width,
                                     height: style.height,
                                     clipPath: style.clipPath,
-                                    // Gap configuration using transform logic
-                                    transform: "scale(0.99)",
+                                    // rely purely on the clip-path gap logic for visually perfect gaps
+                                    transform: "none",
                                 }}
                                 onMouseEnter={() => {
                                     setCursorType("hover");
@@ -164,6 +185,27 @@ const TriangleGridHero = () => {
                     })}
                 </div>
             </motion.div>
+
+            {/* Mobile Image Slideshow Layer (Hidden on Desktop) */}
+            <div className="absolute inset-0 pointer-events-none z-10 block md:hidden bg-black">
+                <AnimatePresence mode="popLayout">
+                    <motion.img
+                        key={currentSlide}
+                        src={mobileImages[currentSlide]}
+                        initial={{ opacity: 0, scale: 1.1 }}
+                        animate={{ opacity: 0.6, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{
+                            opacity: { duration: 1.5, ease: "easeInOut" },
+                            scale: { duration: 6, ease: "linear" }
+                        }}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        alt="Hero showcase"
+                    />
+                </AnimatePresence>
+                {/* Dark gradient overlay for text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/80" />
+            </div>
 
             {/* Text Layer (Foreground) */}
             <div className="absolute inset-0 z-10 pointer-events-none flex flex-col justify-center items-center md:items-end px-4 md:px-0 md:pr-16 lg:pr-24">
@@ -207,19 +249,19 @@ const TriangleGridHero = () => {
 
 
             {/* Bottom Left Corner text */}
-            <div className="absolute bottom-12 left-12 z-20 flex-col items-start text-white pointer-events-auto hidden md:flex mix-blend-difference">
-                <div className="relative flex items-center gap-4 mb-4 cursor-pointer hover:opacity-80 transition-opacity">
-                    <span className="absolute -left-12 top-0 text-white/50 text-xs font-mono tracking-widest rotate-[-90deg] origin-bottom-left">PLAY</span>
-                    <h3 className="text-xl font-bold tracking-wide">Our Showreel</h3>
+            <div className="absolute bottom-12 left-12 z-20 flex-col items-start text-white pointer-events-auto hidden md:flex" style={{ filter: "drop-shadow(0px 4px 10px rgba(0,0,0,0.8))" }}>
+                <Link to="/work" className="relative flex items-center gap-4 mb-4 cursor-pointer hover:opacity-80 transition-opacity">
+                    <span className="absolute -left-12 top-0 text-white/50 text-xs font-mono tracking-widest rotate-[-90deg] origin-bottom-left" style={{ textShadow: "0px 2px 4px rgba(0,0,0,0.8)" }}>PLAY</span>
+                    <h3 className="text-xl font-bold tracking-wide" style={{ textShadow: "0px 2px 8px rgba(0,0,0,1)" }}>OUR WORKS</h3>
                     <ArrowRight className="w-4 h-4 text-cyan-400" />
-                </div>
-                <p className="text-xs text-white/70 max-w-[250px] leading-relaxed font-mono uppercase tracking-widest">
+                </Link>
+                <p className="text-xs text-white/90 max-w-[250px] leading-relaxed font-mono uppercase tracking-widest font-bold" style={{ textShadow: "0px 2px 6px rgba(0,0,0,1)" }}>
                     Pushing the boundaries of visual effects and digital storytelling.
                 </p>
             </div>
 
             {/* Bottom Right Socials */}
-            <div className="absolute bottom-12 right-12 z-20 flex gap-8 text-white pointer-events-auto mix-blend-difference">
+            <div className="absolute bottom-12 right-12 z-20 flex gap-8 text-white pointer-events-auto" style={{ filter: "drop-shadow(0px 4px 10px rgba(0,0,0,0.8))" }}>
                 <Facebook className="w-5 h-5 cursor-pointer hover:text-white/70 transition-colors" />
                 <Instagram className="w-5 h-5 cursor-pointer hover:text-white/70 transition-colors" />
                 <Twitter className="w-5 h-5 cursor-pointer hover:text-white/70 transition-colors fill-current" />

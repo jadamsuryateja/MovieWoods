@@ -93,10 +93,11 @@ export const works: Project[] = [
 ];
 
 export const teamMembers = [
-    { name: "James Fletcher", role: "Founder & Creative Director", initials: "JF" },
-    { name: "Sarah Chen", role: "Head of VFX", initials: "SC" },
-    { name: "Marcus Webb", role: "Lead Compositor", initials: "MW" },
-    { name: "Elena Rossi", role: "Color Scientist", initials: "ER" },
-    { name: "David Kim", role: "Sound Designer", initials: "DK" },
-    { name: "Aria Patel", role: "Motion Designer", initials: "AP" },
+    {
+        name: "MSN RAJU",
+        role: "CEO & VFX Supervisor",
+        initials: "MR",
+        image: "/assets/MSN RAJU CEO.png",
+        bio: "Highly accomplished VFX Supervisor with 14 years of experience delivering high-quality visual effects for international film, television, and digital projects. Proven expertise in overseeing the complete VFX pipeline — from concept development and on-set supervision to post-production, compositing, and final delivery. \n\nStrong leadership skills with a track record of managing large multidisciplinary teams, mentoring artists, and maintaining the highest industry standards. Recognized for creative problem-solving, attention to detail, and the ability to balance artistic storytelling with technical excellence across diverse genres and platforms. \n\nVFX Supervisor with 14+ years of experience on international projects, specializing in end-to-end VFX pipeline management, on-set supervision, and high-quality visual storytelling. Known for leading global teams, delivering cinematic visuals, and meeting complex creative and technical challenges."
+    }
 ];

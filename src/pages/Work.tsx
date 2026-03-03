@@ -44,7 +44,7 @@ const Work = () => {
                     >
                         <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6 text-center md:text-left">Selected Works</p>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none text-center md:text-left">
-                            Crafting <br /> <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)]">Cinematic</span> <br /> Realities
+                            Cinematic <br /> <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.3)]">Visual</span> <br /> Alchemy
                         </h1>
                     </motion.div>
                 </div>
