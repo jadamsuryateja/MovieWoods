@@ -140,7 +140,7 @@ const Footer = () => {
 
       {/* Relative Bottom Copyright */}
       <div className="w-full pb-6 pt-4 z-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-white/40 font-mono uppercase tracking-widest gap-4 border-t border-white/10 mt-6 mx-auto">
-        <p>© 2024 Dreamswood Studios</p>
+        <p>Dreamswood Studios</p>
         <div className="flex gap-4">
           <p>----------------</p>
         </div>
