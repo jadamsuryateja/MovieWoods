@@ -230,23 +230,14 @@ const Index = () => {
           {/* Floating Media Tracker */}
           <div className="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
             {capabilities.map((cap, i) => (
-              <motion.div
+              <CapabilityMedia
                 key={cap.title}
-                className="absolute left-0 top-0 w-[400px] h-[500px] rounded-lg overflow-hidden mix-blend-luminosity"
-                style={{
-                  x: useTransform(mouseX, x => x - 200),
-                  y: useTransform(mouseY, y => y - 250),
-                }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: hoveredCapability === i ? 1 : 0,
-                  scale: hoveredCapability === i ? 1 : 0.8,
-                  zIndex: hoveredCapability === i ? 10 : 0
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <img src={cap.media} alt={cap.title} className="w-full h-full object-cover" />
-              </motion.div>
+                cap={cap}
+                index={i}
+                hoveredCapability={hoveredCapability}
+                mouseX={mouseX}
+                mouseY={mouseY}
+              />
             ))}
           </div>
         </section>
@@ -329,5 +320,29 @@ const ArrowLeft = ({ size, className, style }: { size?: number, className?: stri
     <path d="m12 19-7-7 7-7" /><path d="M19 12H5" />
   </svg>
 );
+
+const CapabilityMedia = ({ cap, index, hoveredCapability, mouseX, mouseY }: any) => {
+  const xTransform = useTransform(mouseX, (x: number) => x - 200);
+  const yTransform = useTransform(mouseY, (y: number) => y - 250);
+
+  return (
+    <motion.div
+      className="absolute left-0 top-0 w-[400px] h-[500px] rounded-lg overflow-hidden mix-blend-luminosity"
+      style={{
+        x: xTransform,
+        y: yTransform,
+      }}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{
+        opacity: hoveredCapability === index ? 1 : 0,
+        scale: hoveredCapability === index ? 1 : 0.8,
+        zIndex: hoveredCapability === index ? 10 : 0
+      }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    >
+      <img src={cap.media} alt={cap.title} className="w-full h-full object-cover" />
+    </motion.div>
+  );
+};
 
 export default Index;

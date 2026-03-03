@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, Variants } from "framer-motion";
 import MagneticElement from "./MagneticElement";
 import { works } from "@/data/works";
 import { useCursor } from "@/context/CursorContext";
@@ -37,7 +37,7 @@ const Header = () => {
     };
   }, [menuOpen, setCursorType]);
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       clipPath: "circle(0px at calc(100% - 4rem) 4rem)",
       transition: {
@@ -45,7 +45,7 @@ const Header = () => {
         stiffness: 400,
         damping: 40,
         delay: 0.2,
-      } as any, // Bypass strict TS check for ease
+      },
     },
     open: {
       clipPath: "circle(150% at calc(100% - 4rem) 4rem)",
@@ -53,16 +53,16 @@ const Header = () => {
         type: "spring",
         stiffness: 20,
         restDelta: 2,
-      } as any,
+      },
     },
   };
 
-  const linkVariants = {
+  const linkVariants: Variants = {
     closed: { y: 50, opacity: 0, transition: { duration: 0.2 } },
     open: (i: number) => ({
       y: 0,
       opacity: 1,
-      transition: { delay: i * 0.1 + 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] as any },
+      transition: { delay: i * 0.1 + 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
     }),
   };
 

@@ -74,6 +74,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
                     width: `calc(var(--tri-w) + 1px)`, // Fix sub-pixel rendering gaps
                     height: `calc(var(--tri-h) + 1px)`,
                     clipPath: isUp ? "polygon(50% 0%, 0% 100%, 100% 100%)" : "polygon(0% 0%, 100% 0%, 50% 100%)",
+                    willChange: "transform, opacity"
                 }}
                 exit={{
                     // Zig-zag: "up" pointing triangles fly down, "down" pointing triangles fly up
@@ -88,8 +89,8 @@ const Loader = ({ onComplete }: LoaderProps) => {
                     delay: staggerDelay
                 }}
             >
-                <img src={imgSrc} className="w-full h-full object-cover brightness-[0.4]" alt="" />
-                <div className="absolute inset-0 bg-[#0a0a0a]/20" /> {/* Subtle tint */}
+                <img src={imgSrc} className="w-full h-full object-cover" alt="" />
+                <div className="absolute inset-0 bg-[#0a0a0a]/60" /> {/* Replaced brightness filter with a performant overlay */}
             </motion.div>
         );
     };
