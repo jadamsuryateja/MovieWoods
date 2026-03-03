@@ -93,6 +93,7 @@ const Footer = () => {
                 className="text-2xl font-bold uppercase tracking-wide hover:text-primary hover:translate-x-4 transition-all duration-300 w-fit"
                 onMouseEnter={() => setCursorType("hover")}
                 onMouseLeave={() => setCursorType("default")}
+                onClick={() => window.scrollTo(0, 0)}
               >
                 {link.name}
               </Link>
@@ -141,9 +142,7 @@ const Footer = () => {
       <div className="w-full pb-6 pt-4 z-10 flex flex-col md:flex-row justify-between items-center text-[10px] text-white/40 font-mono uppercase tracking-widest gap-4 border-t border-white/10 mt-6 mx-auto">
         <p>© 2024 Dreamswood Studios</p>
         <div className="flex gap-4">
-          <a href="#" className="hover:text-white transition-colors">Privacy</a>
-          <span>-</span>
-          <a href="#" className="hover:text-white transition-colors">Terms</a>
+          <p>----------------</p>
         </div>
       </div>
     </footer>

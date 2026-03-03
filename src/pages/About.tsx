@@ -135,10 +135,10 @@ const About = () => {
                   <div className="absolute top-0 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
                   {/* Editorial Grid Layout */}
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                  <div className="grid flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
                     {/* Left Typography Block */}
-                    <div className="lg:col-span-7 relative z-10 flex flex-col justify-center">
+                    <div className="lg:col-span-7 relative z-10 flex flex-col justify-center order-2 lg:order-1 mt-8 lg:mt-0">
                       <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-6">Leadership</p>
 
                       <motion.h3
@@ -178,7 +178,7 @@ const About = () => {
                     </div>
 
                     {/* Right Image Block - Smaller & Creative */}
-                    <div className="lg:col-span-5 relative mt-12 lg:mt-0 flex justify-end">
+                    <div className="lg:col-span-5 relative mt-12 lg:mt-0 flex lg:justify-end justify-center order-1 lg:order-2">
 
                       {/* Decorative Outline Frame */}
                       <motion.div
