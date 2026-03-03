@@ -37,7 +37,15 @@ const AnimatedRoutes = () => {
 };
 
 const App = () => {
-  const [isAppLoading, setIsAppLoading] = useState(true);
+  const [isAppLoading, setIsAppLoading] = useState(() => {
+    // Only show loader if it hasn't been shown in this session
+    return sessionStorage.getItem("moviewoods_loader_seen") !== "true";
+  });
+
+  const handleLoaderComplete = () => {
+    sessionStorage.setItem("moviewoods_loader_seen", "true");
+    setIsAppLoading(false);
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -46,7 +54,7 @@ const App = () => {
           <Toaster />
           <Sonner />
 
-          {isAppLoading && <Loader onComplete={() => setIsAppLoading(false)} />}
+          {isAppLoading && <Loader onComplete={handleLoaderComplete} />}
 
           <BrowserRouter>
             <AnimatedRoutes />
