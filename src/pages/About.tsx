@@ -1,7 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import PageTransition from "@/components/PageTransition";
-import { teamMembers } from "@/data/projects";
+import { teamMembers } from "@/data/works";
 
 const FadeSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <motion.div

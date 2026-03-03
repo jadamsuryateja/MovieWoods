@@ -13,7 +13,7 @@ const Footer = () => {
   const { setCursorType } = useCursor();
 
   return (
-    <footer className="border-t border-black/5 mt-20 bg-muted/30">
+    <footer id="footer" className="border-t border-black/5 mt-20 bg-muted/30">
       <div className="flex items-center justify-center gap-6 py-10">
         {socialLinks.map((social) => (
           <a

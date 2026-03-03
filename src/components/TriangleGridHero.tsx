@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { works } from "@/data/works";
 import { useCursor } from "@/context/CursorContext";
 import { Play, ArrowRight, ArrowUp, ArrowDown, Facebook, Instagram, Twitter } from "lucide-react";
 
@@ -23,50 +22,46 @@ const getTriangleStyle = (col: number, row: number) => {
 const projectColors = [
     "#ff1a1a", // Deep Red
     "#2a75bb", // Blue
-    "#1a1a1a", // Dark/Neutral
+    "#00ff8cff", // Dark/Neutral
     "#e67e22", // Orange
     "#f5f6fa", // White/Silver
     "#8e44ad", // Purple
     "#27ae60", // Green
     "#f1c40f", // Yellow
     "#e74c3c", // Light Red
-    "#34495e", // Dark Blue
+    "#0080ffff", // Dark Blue
 ];
 
-const getImg = (pIdx: number, sIdx: number = 0) => {
-    const project = works[pIdx] || works[0];
-    return project.screenshots[sIdx] || project.screenshots[0] || "";
-};
 const activeCells = [
     // Top Row (Row 0)
-    { col: 0, row: 0, img: getImg(1, 0), color: projectColors[0] }, // Up
-    { col: 1, row: 0, img: getImg(2, 0), color: projectColors[1] }, // Down
-    { col: 2, row: 0, img: getImg(3, 0), color: projectColors[2] }, // Up
-    { col: 3, row: 0, img: getImg(4, 0), color: projectColors[3] }, // Down
+    { col: 0, row: 0, img: "/assets/hero/contact.webp", color: projectColors[0] }, // Up
+    { col: 1, row: 0, img: "/assets/hero/omega.webp", color: projectColors[1] }, // Down
+    { col: 2, row: 0, img: "/assets/hero/inferno.webp", color: projectColors[2] }, // Up
+    { col: 3, row: 0, img: "/assets/hero/titan.webp", color: projectColors[3] }, // Down
 
     // Middle Row (Row 1)
-    { col: 0, row: 1, img: getImg(5, 0), color: projectColors[4] }, // Down
-    { col: 1, row: 1, img: getImg(6, 0), color: projectColors[5] }, // Up
-    { col: 2, row: 1, img: getImg(7, 0), color: projectColors[6] }, // Down
-    { col: 3, row: 1, img: getImg(8, 0), color: projectColors[7] }, // Up
-    { col: 4, row: 1, img: getImg(9, 0), color: projectColors[8] }, // Down
+    { col: 0, row: 1, img: "/assets/hero/sands.webp", color: projectColors[4] }, // Down
+    { col: 1, row: 1, img: "/assets/hero/neural.webp", color: projectColors[5] }, // Up
+    { col: 2, row: 1, img: "/assets/hero/cortex.webp", color: projectColors[6] }, // Down
+    { col: 3, row: 1, img: "/assets/hero/soul.webp", color: projectColors[7] }, // Up
+    { col: 4, row: 1, img: "/assets/hero/tomorrow.webp", color: projectColors[8] }, // Down
 
     // Bottom Row (Row 2)
-    { col: 0, row: 2, img: getImg(0, 1), color: projectColors[9] }, // Up
-    { col: 1, row: 2, img: getImg(1, 1), color: projectColors[0] }, // Down
-    { col: 2, row: 2, img: getImg(2, 1), color: projectColors[1] }, // Up
-    { col: 3, row: 2, img: getImg(3, 1), color: projectColors[2] }, // Down
+    { col: 0, row: 2, img: "/assets/hero/neon.webp", color: projectColors[9] }, // Up
+    { col: 1, row: 2, img: "/assets/hero/contact.webp", color: projectColors[0] }, // Down
+    { col: 2, row: 2, img: "/assets/hero/omega.webp", color: projectColors[1] }, // Up
+    { col: 3, row: 2, img: "/assets/hero/inferno.webp", color: projectColors[2] }, // Down
 
     // Extra Rows for Mobile (Row 3, 4)
-    { col: 0, row: 3, img: getImg(4, 1), color: projectColors[3] }, // Down
-    { col: 1, row: 3, img: getImg(5, 1), color: projectColors[4] }, // Up
-    { col: 2, row: 3, img: getImg(6, 1), color: projectColors[5] }, // Down
-    { col: 3, row: 3, img: getImg(7, 1), color: projectColors[6] }, // Up
+    { col: 0, row: 3, img: "/assets/hero/titan.webp", color: projectColors[3] }, // Down
+    { col: 1, row: 3, img: "/assets/hero/sands.webp", color: projectColors[4] }, // Up
+    { col: 2, row: 3, img: "/assets/hero/neural.webp", color: projectColors[5] }, // Down
+    { col: 3, row: 3, img: "/assets/hero/cortex.webp", color: projectColors[6] }, // Up
 
-    { col: 0, row: 4, img: getImg(8, 1), color: projectColors[7] }, // Up
-    { col: 1, row: 4, img: getImg(9, 1), color: projectColors[8] }, // Down
-    { col: 2, row: 4, img: getImg(0, 2), color: projectColors[9] }, // Up
-    { col: 3, row: 4, img: getImg(2, 2), color: projectColors[0] }, // Down
+    { col: 0, row: 4, img: "/assets/hero/soul.webp", color: projectColors[7] }, // Up
+    { col: 1, row: 4, img: "/assets/hero/tomorrow.webp", color: projectColors[8] }, // Down
+    { col: 2, row: 4, img: "/assets/hero/neon.webp", color: projectColors[9] }, // Up
+    { col: 3, row: 4, img: "/assets/hero/omega.webp", color: projectColors[0] }, // Down
 ];
 
 const TriangleGridHero = () => {
@@ -210,17 +205,6 @@ const TriangleGridHero = () => {
                 </div>
             </div>
 
-
-            {/* Left Paginations/Bullets */}
-            <div className="absolute left-10 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col items-center gap-6 text-white/50 mix-blend-difference">
-                <ArrowUp className="w-4 h-4 cursor-pointer hover:text-white transition-colors pointer-events-auto" />
-                <div className="w-2 h-2 rounded-full border border-white transition-colors cursor-pointer text-white"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-white/50 transition-colors cursor-pointer hover:bg-white pointer-events-auto"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-white/50 transition-colors cursor-pointer hover:bg-white pointer-events-auto"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-white/50 transition-colors cursor-pointer hover:bg-white pointer-events-auto"></div>
-                <div className="w-1.5 h-1.5 rounded-full bg-white/50 transition-colors cursor-pointer hover:bg-white pointer-events-auto"></div>
-                <ArrowDown className="w-4 h-4 cursor-pointer hover:text-white transition-colors pointer-events-auto" />
-            </div>
 
             {/* Bottom Left Corner text */}
             <div className="absolute bottom-12 left-12 z-20 flex-col items-start text-white pointer-events-auto hidden md:flex mix-blend-difference">

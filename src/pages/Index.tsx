@@ -5,10 +5,17 @@ import PageTransition from "@/components/PageTransition";
 import TriangleGridHero from "@/components/TriangleGridHero";
 import TikTokCarouselHero from "@/components/TikTokCarouselHero";
 import MagneticElement from "@/components/MagneticElement";
-import { works } from "@/data/works";
 import { useCursor } from "@/context/CursorContext";
+import SectionNavigator from "@/components/SectionNavigator";
 
-const featured = works.slice(0, 6);
+const sections = [
+  { id: "hero", label: "Home" },
+  { id: "portfolio", label: "Work" },
+  { id: "process", label: "Process" },
+  { id: "capabilities", label: "Services" },
+  { id: "vision", label: "About" },
+  { id: "footer", label: "Contact" },
+];
 
 const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,19 +39,19 @@ const Index = () => {
   const capabilities = [
     {
       title: "Visual Effects",
-      media: works[0]?.screenshots[0] || ""
+      media: "/assets/capabilities/vfx.webp"
     },
     {
       title: "Color Grading",
-      media: works[7]?.screenshots[0] || ""
+      media: "/assets/capabilities/color.webp"
     },
     {
       title: "Motion Design",
-      media: works[9]?.screenshots[0] || ""
+      media: "/assets/capabilities/motion.webp"
     },
     {
       title: "Sound Design",
-      media: works[8]?.screenshots[0] || ""
+      media: "/assets/capabilities/sound.webp"
     },
   ];
 
@@ -65,14 +72,20 @@ const Index = () => {
       <div ref={containerRef} className="relative">
         <h1 className="sr-only">MovieWoods — Visual Effects & Post-Production Studio</h1>
 
+        <SectionNavigator sections={sections} />
+
         {/* New Triangle Grid Hero Section */}
-        <TriangleGridHero />
+        <div id="hero">
+          <TriangleGridHero />
+        </div>
 
         {/* TikTok Style Carousel Section (Moved down) */}
-        <TikTokCarouselHero />
+        <div id="portfolio">
+          <TikTokCarouselHero />
+        </div>
 
         {/* Horizontal Scroll Gallery (The Process) */}
-        <section ref={horizontalRef} className="relative h-[400vh] bg-foreground text-background">
+        <section id="process" ref={horizontalRef} className="relative h-[400vh] bg-foreground text-background">
           <div className="sticky top-0 h-screen overflow-hidden flex items-center">
 
             {/* Background Marquee for texture */}
@@ -105,7 +118,7 @@ const Index = () => {
                     style={{ y: useTransform(horizontalScroll, [0, 0.25], [100, -100]) }}
                     className="flex-1 h-[60vh] relative hidden md:block"
                   >
-                    <img src={works[4]?.screenshots[0] || ""} className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="Pre-viz" />
+                    <img src="/assets/process/conceptualize.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="Pre-viz" />
                   </motion.div>
                 </div>
               </div>
@@ -126,7 +139,7 @@ const Index = () => {
                     style={{ y: useTransform(horizontalScroll, [0.15, 0.5], [-100, 100]) }}
                     className="flex-1 h-[50vh] relative hidden md:block"
                   >
-                    <img src={works[6]?.screenshots[0] || ""} className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="On Set" />
+                    <img src="/assets/process/execution.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="On Set" />
                   </motion.div>
                 </div>
               </div>
@@ -147,7 +160,7 @@ const Index = () => {
                     style={{ y: useTransform(horizontalScroll, [0.4, 0.75], [100, -100]) }}
                     className="flex-1 h-[60vh] relative hidden md:block"
                   >
-                    <video autoPlay loop muted playsInline src={works[2]?.video || ""} className="w-full h-full object-cover grayscale brightness-75 rounded-sm" />
+                    <video autoPlay loop muted playsInline src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" />
                   </motion.div>
                 </div>
               </div>
@@ -176,7 +189,7 @@ const Index = () => {
 
 
         {/* Magnetic Capabilities List */}
-        <section className="py-40 bg-background relative z-10 overflow-hidden">
+        <section id="capabilities" className="py-40 bg-background relative z-10 overflow-hidden">
           <div className="max-w-7xl mx-auto px-6">
             <motion.p
               initial={{ opacity: 0, x: -20 }}
@@ -239,7 +252,7 @@ const Index = () => {
         </section>
 
         {/* Studio Vision Section */}
-        <section className="py-40 bg-foreground text-background overflow-hidden relative">
+        <section id="vision" className="py-40 bg-foreground text-background overflow-hidden relative">
           <motion.div
             style={{ x: useTransform(scrollYProgress, [0.6, 1], ["0%", "-50%"]) }}
             className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] select-none pointer-events-none flex"

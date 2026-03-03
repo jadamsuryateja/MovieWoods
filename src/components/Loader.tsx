@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { works } from "@/data/works";
+const loaderImages = [
+    "/assets/loader/neon.webp",
+    "/assets/loader/contact.webp",
+    "/assets/loader/omega.webp",
+    "/assets/loader/inferno.webp",
+    "/assets/loader/titan.webp",
+    "/assets/loader/sands.webp",
+    "/assets/loader/neural.webp",
+    "/assets/loader/cortex.webp",
+    "/assets/loader/soul.webp",
+    "/assets/loader/tomorrow.webp",
+];
 
 interface LoaderProps {
     onComplete: () => void;
@@ -46,8 +57,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
 
     const renderCell = (cell: { col: number, row: number }, i: number) => {
         const isUp = (cell.col + cell.row) % 2 === 0;
-        // Cycle through all project images to fill the grid, gracefully handling empty lists
-        const project = works.length > 0 ? works[i % works.length] : undefined;
+        const imgSrc = loaderImages[i % loaderImages.length];
 
         // Calculate a staggered delay based on distance from the center column
         // The center is roughly col 4 (grid goes from -4 to 12)
@@ -78,11 +88,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
                     delay: staggerDelay
                 }}
             >
-                {project?.screenshots?.[0] ? (
-                    <img src={project.screenshots[0]} className="w-full h-full object-cover brightness-[0.4]" alt="" />
-                ) : (
-                    <div className="w-full h-full bg-[#111] brightness-[0.4]" />
-                )}
+                <img src={imgSrc} className="w-full h-full object-cover brightness-[0.4]" alt="" />
                 <div className="absolute inset-0 bg-[#0a0a0a]/20" /> {/* Subtle tint */}
             </motion.div>
         );
@@ -91,7 +97,11 @@ const Loader = ({ onComplete }: LoaderProps) => {
     return (
         <AnimatePresence onExitComplete={onComplete}>
             {isVisible && (
-                <div className="fixed inset-0 z-[99999] pointer-events-none overflow-hidden bg-black">
+                <motion.div
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 1 }} // Keep visible during children's exit animations
+                    className="fixed inset-0 z-[99999] pointer-events-none overflow-hidden bg-black"
+                >
                     <style>{`
                         .loader-grid {
                             --tri-w: 48vw;
@@ -106,12 +116,11 @@ const Loader = ({ onComplete }: LoaderProps) => {
                     `}</style>
 
                     {/* GRID CONTAINER - Only reveals during "grid" phase */}
-                    {/* Centered vertically on the split line */}
                     <motion.div
                         className="absolute inset-x-0 top-1/2 loader-grid"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: phase === "grid" ? 1 : 0 }}
-                        transition={{ duration: 0.2, ease: "linear" }}
+                        transition={{ duration: 0.5, ease: "linear" }}
                     >
                         {cells.map((c, i) => renderCell(c, i))}
                     </motion.div>
@@ -123,7 +132,6 @@ const Loader = ({ onComplete }: LoaderProps) => {
                         transition={{ duration: 0.5, ease: "easeIn" }}
                     >
                         <div className="relative flex items-center justify-center w-full h-[40vh] overflow-hidden">
-                            {/* DW Text Initialized immediately without Presence mount delays */}
                             <motion.div
                                 className="absolute inset-0 flex items-center justify-center pointer-events-none"
                                 initial={false}
@@ -139,7 +147,6 @@ const Loader = ({ onComplete }: LoaderProps) => {
                                 </h1>
                             </motion.div>
 
-                            {/* MOVIEWOODS Text initialized off-screen */}
                             <motion.div
                                 className="absolute inset-0 flex items-center justify-center pointer-events-none"
                                 initial={false}
@@ -156,8 +163,7 @@ const Loader = ({ onComplete }: LoaderProps) => {
                             </motion.div>
                         </div>
                     </motion.div>
-
-                </div>
+                </motion.div>
             )}
         </AnimatePresence>
     );

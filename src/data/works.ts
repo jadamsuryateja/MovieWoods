@@ -91,3 +91,12 @@ export const works: Project[] = [
         screenshots: ["https://picsum.photos/seed/tomorrow/1920/1080"]
     }
 ];
+
+export const teamMembers = [
+    { name: "James Fletcher", role: "Founder & Creative Director", initials: "JF" },
+    { name: "Sarah Chen", role: "Head of VFX", initials: "SC" },
+    { name: "Marcus Webb", role: "Lead Compositor", initials: "MW" },
+    { name: "Elena Rossi", role: "Color Scientist", initials: "ER" },
+    { name: "David Kim", role: "Sound Designer", initials: "DK" },
+    { name: "Aria Patel", role: "Motion Designer", initials: "AP" },
+];
