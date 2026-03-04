@@ -24,16 +24,16 @@ const getTriangleStyle = (col: number, row: number) => {
 };
 
 const projectColors = [
-    "#ff1a1a", // Deep Red
-    "#2a75bb", // Blue
-    "#00ff8cff", // Dark/Neutral
-    "#e67e22", // Orange
-    "#f5f6fa", // White/Silver
-    "#8e44ad", // Purple
-    "#27ae60", // Green
-    "#f1c40f", // Yellow
-    "#e74c3c", // Light Red
-    "#0080ffff", // Dark Blue
+    "#FFB3B3", // Soft Red
+    "#B3D9FF", // Baby Blue
+    "#B3FFD9", // Mint Green
+    "#FFD9B3", // Peach/Orange
+    "#E0B3FF", // Lavender
+    "#FFF9B3", // Pale Yellow
+    "#B3F0FF", // Sky Blue
+    "#FFB3E6", // Rose Pink
+    "#F2F2F2", // Soft Silver
+    "#B3FFFF", // Pale Aqua
 ];
 
 const activeCells = [
@@ -70,7 +70,9 @@ const activeCells = [
 
 const TriangleGridHero = () => {
     const { setCursorType } = useCursor();
-    const [activeColor, setActiveColor] = useState("#111111");
+    const [colorIndex, setColorIndex] = useState(0);
+    const [showColor, setShowColor] = useState(true);
+    const activeColor = showColor ? projectColors[colorIndex] : "#000000";
     const [currentSlide, setCurrentSlide] = useState(0);
     const containerRef = useRef<HTMLElement>(null);
     const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end start"] });
@@ -91,6 +93,34 @@ const TriangleGridHero = () => {
         }, 4000); // Change image every 4 seconds
         return () => clearInterval(interval);
     }, [mobileImages.length]);
+
+    // Automatic Background Color Cycling Logic with Fade Sequence
+    useEffect(() => {
+        let timeoutId: NodeJS.Timeout;
+
+        const startSequence = () => {
+            // Step 1: Stay "On" for 5 seconds
+            timeoutId = setTimeout(() => {
+                // Step 2: Fade Out to Black
+                setShowColor(false);
+
+                // Wait for Fade Out (1.5s) + Black Delay (2s) = 3.5s
+                timeoutId = setTimeout(() => {
+                    // Step 3: Switch Color and Fade In
+                    setColorIndex((prev) => (prev + 1) % projectColors.length);
+                    setShowColor(true);
+
+                    // Wait for Fade In (1.5s) before restarting the sequence
+                    timeoutId = setTimeout(startSequence, 1500);
+                }, 3500);
+            }, 5000);
+        };
+
+        startSequence();
+        return () => {
+            if (timeoutId) clearTimeout(timeoutId);
+        };
+    }, []);
 
     return (
         <section ref={containerRef} className="relative w-full min-h-screen overflow-hidden pt-0 m-0 bg-[#0a0a0a]">
@@ -155,7 +185,7 @@ const TriangleGridHero = () => {
                         return (
                             <div
                                 key={i}
-                                className="absolute pointer-events-auto transition-transform duration-700 hover:scale-95 group"
+                                className="absolute pointer-events-auto group"
                                 style={{
                                     left: style.left,
                                     top: style.top,
@@ -167,19 +197,17 @@ const TriangleGridHero = () => {
                                 }}
                                 onMouseEnter={() => {
                                     setCursorType("hover");
-                                    setActiveColor(cell.color);
                                 }}
                                 onMouseLeave={() => {
                                     setCursorType("default");
-                                    setActiveColor("#111111");
                                 }}
                             >
                                 <img
                                     src={cell.img}
-                                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                    className="w-full h-full object-cover transition-transform duration-1000"
                                     alt=""
                                 />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                <div className="absolute inset-0 bg-black/10 transition-colors duration-500" />
                             </div>
                         )
                     })}
