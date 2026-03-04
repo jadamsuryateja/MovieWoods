@@ -52,7 +52,7 @@ const Index = () => {
   return (
     <PageTransition>
       <div ref={containerRef} className="relative">
-        <h1 className="sr-only">DreamsWood VFX Studio — Visual Effects & Post-Production</h1>
+        <h1 className="sr-only">Dreamswood | Award-Winning Visual Effects & Post-Production Studio — VFX, CGI, and Animation</h1>
 
         <SectionNavigator sections={sections} />
 
@@ -100,7 +100,7 @@ const Index = () => {
                     style={{ y: useTransform(horizontalScroll, [0, 0.25], [100, -100]) }}
                     className="flex-1 h-[60vh] relative hidden md:block"
                   >
-                    <img src="/assets/process/conceptualize.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="Pre-viz" />
+                    <img src="/assets/process/conceptualize.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="Dreamswood VFX Pre-production: Concept Art and Pre-visualization" />
                   </motion.div>
                 </div>
               </div>
@@ -121,7 +121,7 @@ const Index = () => {
                     style={{ y: useTransform(horizontalScroll, [0.15, 0.5], [-100, 100]) }}
                     className="flex-1 h-[50vh] relative hidden md:block"
                   >
-                    <img src="/assets/process/execution.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="On Set" />
+                    <img src="/assets/process/execution.webp" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" alt="Dreamswood Production: Professional On-set VFX Supervision and Data Capture" />
                   </motion.div>
                 </div>
               </div>
@@ -253,7 +253,7 @@ const Index = () => {
               style={{ y: useTransform(scrollYProgress, [0.3, 0.7], [0, -200]) }}
               className="absolute inset-0 opacity-20 pointer-events-none"
             >
-              <img src="/assets/story-bg.webp" className="w-full h-full object-cover" alt="" />
+              <img src="/assets/story-bg.webp" className="w-full h-full object-cover" alt="Cinematic VFX Studio Atmosphere and Creative Workspace" />
             </motion.div>
             <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
           </div>
@@ -272,7 +272,7 @@ const Index = () => {
                   <motion.img
                     src="/assets/services-detail.webp"
                     className="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
-                    alt="Technical Expertise"
+                    alt="Dreamswood Technical Expertise: High-End VFX Pipeline and Software"
                   />
                   {/* Glassmorphism Overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
@@ -286,7 +286,7 @@ const Index = () => {
                   style={{ y: useTransform(scrollYProgress, [0.4, 0.6], [50, -50]) }}
                   className="absolute -bottom-12 -right-12 w-48 h-48 md:w-64 md:h-64 rounded-sm overflow-hidden border border-white/10 shadow-2xl z-20 hidden lg:block"
                 >
-                  <img src="/assets/philosophy-bg.webp" className="w-full h-full object-cover grayscale brightness-75" alt="" />
+                  <img src="/assets/philosophy-bg.webp" className="w-full h-full object-cover grayscale brightness-75" alt="Abstract Visual Effects Simulation and Particle Art" />
                   <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />
                 </motion.div>
               </motion.div>
@@ -390,7 +390,7 @@ const Index = () => {
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
                 >
-                  <img src="/assets/capabilities/vfx.webp" alt="High Quality Output" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <img src="/assets/capabilities/vfx.webp" alt="High-Quality Visual Effects and CGI Output by Dreamswood" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </motion.div>
                 <motion.div
@@ -417,7 +417,7 @@ const Index = () => {
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
                 >
-                  <img src="/assets/capabilities/color.webp" alt="On Time Delivery" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <img src="/assets/capabilities/color.webp" alt="Cinematic Color Grading and Post-Production Services" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </motion.div>
                 <motion.div
@@ -444,7 +444,7 @@ const Index = () => {
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                   className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
                 >
-                  <img src="/assets/capabilities/motion.webp" alt="Budget Friendly" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                  <img src="/assets/capabilities/motion.webp" alt="Motion Graphics and Dynamic Digital Content Creation" className="absolute inset-0 w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                   <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 </motion.div>
                 <motion.div

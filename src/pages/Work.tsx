@@ -117,7 +117,7 @@ const Work = () => {
                                             ) : work.screenshots && work.screenshots.length > 0 ? (
                                                 <img
                                                     src={work.screenshots[0]}
-                                                    alt={work.title}
+                                                    alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
                                                     className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
                                                 />
                                             ) : (

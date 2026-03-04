@@ -84,7 +84,7 @@ const About = () => {
             backgroundSize: '100px 100px',
           }} />
 
-        <h1 className="sr-only">About DreamsWood VFX Studio</h1>
+        <h1 className="sr-only">About Dreamswood | Global Visual Effects & Animation Studio Leadership and Philosophy</h1>
 
         {/* --- Hero Section with Parallax Background Text --- */}
         <motion.section
@@ -212,7 +212,7 @@ const About = () => {
                         {member.image && (
                           <motion.img
                             src={member.image}
-                            alt={member.name}
+                            alt={`${member.name} | ${member.role} at Dreamswood VFX Studio`}
                             className="w-full h-full object-cover transition-all duration-[2s] hover:scale-110 cursor-none"
                             onMouseEnter={() => setCursorType("view")}
                             onMouseLeave={() => setCursorType("default")}
@@ -232,7 +232,7 @@ const About = () => {
           {/* Story with Highlight Reveal */}
           <section className="px-6 md:px-24 py-32 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
-              <img src="/assets/story-bg.webp" alt="" className="w-full h-full object-cover grayscale" />
+              <img src="/assets/story-bg.webp" alt="Dreamswood Studio Story: A Legacy of Cinematic Visual Effects" className="w-full h-full object-cover grayscale" />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black" />
             </div>
 
@@ -251,10 +251,10 @@ const About = () => {
 
                   <div className="grid grid-cols-2 gap-4 h-48">
                     <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
-                      <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover" />
+                      <img src="/assets/services-detail.webp" alt="Dreamswood VFX Production: Technical Scene Breakdown and Rendering" className="w-full h-full object-cover" />
                     </div>
                     <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
-                      <img src="/assets/philosophy-bg.webp" alt="" className="w-full h-full object-cover scale-150" />
+                      <img src="/assets/philosophy-bg.webp" alt="Advanced CGI Simulation: Fluid and Dynamics Artistry" className="w-full h-full object-cover scale-150" />
                     </div>
                   </div>
 
@@ -269,7 +269,7 @@ const About = () => {
           {/* Full-Width Core Services Section */}
           <section id="services" className="px-6 md:px-24 relative">
             <div className="absolute inset-0 opacity-5 pointer-events-none">
-              <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover mix-blend-screen" />
+              <img src="/assets/services-detail.webp" alt="Dreamswood Core Services: Comprehensive VFX Pipeline Overview" className="w-full h-full object-cover mix-blend-screen" />
             </div>
 
             <div className="max-w-7xl mx-auto border-t border-white/5 pt-24 relative z-10">
@@ -325,7 +325,7 @@ const About = () => {
 
                     {/* Tech Background Pattern */}
                     <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700 pointer-events-none">
-                      <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover scale-150" />
+                      <img src="/assets/services-detail.webp" alt="Technical VFX Service: Industrial Standard Quality and Precision" className="w-full h-full object-cover scale-150" />
                     </div>
 
                     {/* Tech Corners */}
@@ -361,7 +361,7 @@ const About = () => {
           {/* Philosophy Section */}
           <section className="px-6 md:px-24 py-40 flex items-center justify-center relative overflow-hidden">
             <div className="absolute inset-0 opacity-20 pointer-events-none">
-              <img src="/assets/philosophy-bg.webp" alt="" className="w-full h-full object-cover" />
+              <img src="/assets/philosophy-bg.webp" alt="Dreamswood Studio Philosophy: The Intersection of Art and VFX Technology" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
               <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-black to-transparent" />
               <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black to-transparent" />
@@ -410,7 +410,7 @@ const About = () => {
 
                   {/* Subtle hover background image */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-1000">
-                    <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover grayscale" />
+                    <img src="/assets/services-detail.webp" alt="Why Dreamswood: High-Performance VFX Solutions and Reliable Delivery" className="w-full h-full object-cover grayscale" />
                   </div>
 
                   <h4 className="text-xl md:text-2xl font-bold mb-6 uppercase tracking-tighter group-hover:text-primary transition-colors relative z-10">

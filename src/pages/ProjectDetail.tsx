@@ -74,7 +74,7 @@ const ProjectDetail = () => {
                         <img
                             src={project.screenshots[0]}
                             className="w-full h-full object-cover"
-                            alt={project.title}
+                            alt={`${project.title} - ${project.category} Portfolio Piece by Dreamswood VFX`}
                         />
                     ) : (
                         <div className="w-full h-full flex items-center justify-center">
@@ -111,7 +111,7 @@ const ProjectDetail = () => {
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                         >
-                            <img src={s} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt="" />
+                            <img src={s} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt={`${project.title} Technical Showcase Detail - Image ${idx + 1}`} />
                         </motion.div>
                     ))}
                 </div>
