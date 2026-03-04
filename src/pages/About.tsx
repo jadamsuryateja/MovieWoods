@@ -207,13 +207,13 @@ const About = () => {
                         whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] overflow-hidden bg-black/40 z-10 shadow-2xl"
+                        className="relative w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] md:aspect-square overflow-hidden bg-black/10 z-10 shadow-2xl flex items-center justify-center p-4"
                       >
                         {member.image && (
                           <motion.img
                             src={member.image}
                             alt={`${member.name} | ${member.role} at Dreamswood VFX Studio`}
-                            className="w-full h-full object-cover transition-all duration-[2s] hover:scale-110 cursor-none"
+                            className="w-full h-full object-contain transition-all duration-[2s] hover:scale-110 cursor-none"
                             onMouseEnter={() => setCursorType("view")}
                             onMouseLeave={() => setCursorType("default")}
                           />

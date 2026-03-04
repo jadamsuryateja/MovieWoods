@@ -215,11 +215,11 @@ const Index = () => {
                   <MagneticElement strength={0.1}>
                     <Link
                       to="/work"
-                      className="group relative inline-flex items-center gap-4 px-12 py-5 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-14 mt-12"
+                      className="group relative inline-flex items-center gap-3 md:gap-4 px-6 py-3 md:px-12 md:py-5 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-8 md:hover:pr-14 mt-8 md:mt-12"
                       onMouseEnter={() => setCursorType("hover")}
                       onMouseLeave={() => setCursorType("default")}
                     >
-                      <span className="text-xs md:text-sm uppercase tracking-[0.3em] font-black z-10">
+                      <span className="text-[10px] md:text-sm uppercase tracking-[0.3em] font-black z-10">
                         Explore Full Portfolio
                       </span>
 
@@ -271,7 +271,7 @@ const Index = () => {
                 <div className="relative aspect-[4/5] md:aspect-square overflow-hidden rounded-sm group">
                   <motion.img
                     src="/assets/services-detail.webp"
-                    className="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                    className="w-full h-full object-contain grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                     alt="Dreamswood Technical Expertise: High-End VFX Pipeline and Software"
                   />
                   {/* Glassmorphism Overlay */}
@@ -334,11 +334,11 @@ const Index = () => {
                   <MagneticElement strength={0.1}>
                     <Link
                       to="/about#services"
-                      className="group relative inline-flex items-center gap-4 px-8 py-4 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-10"
+                      className="group relative inline-flex items-center gap-3 md:gap-4 px-5 py-3 md:px-8 md:py-4 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-7 md:hover:pr-10"
                       onMouseEnter={() => setCursorType("hover")}
                       onMouseLeave={() => setCursorType("default")}
                     >
-                      <span className="text-[10px] uppercase tracking-[0.3em] font-black z-10">
+                      <span className="text-[9px] md:text-[10px] uppercase tracking-[0.3em] font-black z-10">
                         Explore All 15 Services
                       </span>
 
