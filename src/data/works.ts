@@ -3,7 +3,6 @@ export interface Project {
     title: string;
     category: string;
     video: string;
-    client?: string;
     screenshots: string[];
 }
 
@@ -11,84 +10,102 @@ export const categories = ["All", "Commercials", "Film & TV", "Music Promos", "S
 
 export const works: Project[] = [
     {
-        id: "1",
-        title: "Neon Frontier",
+        id: "comm-01",
+        title: "High-End Commercial VFX",
         category: "Commercials",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-        client: "Cyberdyne",
-        screenshots: ["https://picsum.photos/seed/neon/1920/1080"]
+        video: "/assets/works/commercial_01.mp4",
+        screenshots: []
     },
     {
-        id: "2",
-        title: "First Contact",
-        category: "Film & TV",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-        client: "Arasaka",
-        screenshots: ["https://picsum.photos/seed/contact/1920/1080"]
-    },
-    {
-        id: "3",
-        title: "Omega Protocol",
+        id: "comm-02",
+        title: "Dynamic Product Showcase",
         category: "Commercials",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-        client: "Weyland-Yutani",
-        screenshots: ["https://picsum.photos/seed/omega/1920/1080"]
+        video: "",
+        screenshots: ["/assets/works/commercials_02.webp"]
     },
     {
-        id: "4",
-        title: "Inferno Rising",
-        category: "Film & TV",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-        client: "OmniCorp",
-        screenshots: ["https://picsum.photos/seed/inferno/1920/1080"]
-    },
-    {
-        id: "5",
-        title: "Titan's Peak",
+        id: "comm-03",
+        title: "Luxury Brand Aesthetics",
         category: "Commercials",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-        client: "Tyrell Corp",
-        screenshots: ["https://picsum.photos/seed/titan/1920/1080"]
+        video: "",
+        screenshots: ["/assets/works/commercials_03.webp"]
     },
     {
-        id: "6",
-        title: "Red Sands",
-        category: "Film & TV",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-        client: "Stark Ind.",
-        screenshots: ["https://picsum.photos/seed/sands/1920/1080"]
-    },
-    {
-        id: "7",
-        title: "Neural Core",
+        id: "comm-04",
+        title: "Urban Motion Dynamics",
         category: "Commercials",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-        client: "Massive Dynamic",
-        screenshots: ["https://picsum.photos/seed/neural/1920/1080"]
+        video: "",
+        screenshots: ["/assets/works/commercials_04.webp"]
     },
     {
-        id: "8",
-        title: "Cortex Link",
-        category: "Film & TV",
-        video: "https://commondatachannel.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-        client: "Oscorp",
-        screenshots: ["https://picsum.photos/seed/cortex/1920/1080"]
-    },
-    {
-        id: "9",
-        title: "Synthetic Soul",
+        id: "comm-05",
+        title: "Premium Tech Visuals",
         category: "Commercials",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-        client: "Shinra",
-        screenshots: ["https://picsum.photos/seed/soul/1920/1080"]
+        video: "",
+        screenshots: ["/assets/works/commercials_05.webp"]
     },
     {
-        id: "10",
-        title: "Echoes of Tomorrow",
+        id: "comm-06",
+        title: "Minimalist Product Flow",
+        category: "Commercials",
+        video: "",
+        screenshots: ["/assets/works/commercials_06.webp"]
+    },
+    {
+        id: "comm-07",
+        title: "Corporate Identity Motion",
+        category: "Commercials",
+        video: "",
+        screenshots: ["/assets/works/commercials_07.webp"]
+    },
+    {
+        id: "comm-08",
+        title: "Cinematic Brand Story",
+        category: "Commercials",
+        video: "/assets/works/commercials_08.mp4",
+        screenshots: []
+    },
+    {
+        id: "film-tv-01",
+        title: "Epic World Matte Painting",
         category: "Film & TV",
-        video: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
-        client: "Aperture Science",
-        screenshots: ["https://picsum.photos/seed/tomorrow/1920/1080"]
+        video: "",
+        screenshots: ["/assets/works/Film& tv_01.webp"]
+    },
+    {
+        id: "film-tv-02",
+        title: "Sci-Fi Environment Design",
+        category: "Film & TV",
+        video: "",
+        screenshots: ["/assets/works/Film& tv_02.webp"]
+    },
+    {
+        id: "film-tv-03",
+        title: "Historical Epic VFX",
+        category: "Film & TV",
+        video: "",
+        screenshots: ["/assets/works/Film& tv_03.webp"]
+    },
+    {
+        id: "film-tv-04",
+        title: "Atmospheric Simulation",
+        category: "Film & TV",
+        video: "",
+        screenshots: ["/assets/works/Film& tv_04.webp"]
+    },
+    {
+        id: "film-tv-05",
+        title: "Digital Character Realism",
+        category: "Film & TV",
+        video: "",
+        screenshots: ["/assets/works/Film& tv_05.webp"]
+    },
+    {
+        id: "film-tv-06",
+        title: "Action Sequence Mastery",
+        category: "Film & TV",
+        video: "",
+        screenshots: ["/assets/works/Film& tv_06.webp"]
     }
 ];
 
@@ -97,7 +114,7 @@ export const teamMembers = [
         name: "MSN RAJU",
         role: "CEO & VFX Supervisor",
         initials: "MR",
-        image: "/assets/MSN RAJU CEO.png",
+        image: "/assets/MSN RAJU CEO.webp",
         bio: "Highly accomplished VFX Supervisor with 14 years of experience delivering high-quality visual effects for international film, television, and digital projects. Proven expertise in overseeing the complete VFX pipeline — from concept development and on-set supervision to post-production, compositing, and final delivery. \n\nStrong leadership skills with a track record of managing large multidisciplinary teams, mentoring artists, and maintaining the highest industry standards. Recognized for creative problem-solving, attention to detail, and the ability to balance artistic storytelling with technical excellence across diverse genres and platforms. \n\nVFX Supervisor with 14+ years of experience on international projects, specializing in end-to-end VFX pipeline management, on-set supervision, and high-quality visual storytelling. Known for leading global teams, delivering cinematic visuals, and meeting complex creative and technical challenges."
     }
 ];

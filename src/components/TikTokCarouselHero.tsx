@@ -13,13 +13,17 @@ const projectColors = [
     "#f5f6fa"  // White/Silver
 ];
 
-const CAROUSEL_ITEMS = works.slice(0, 5).map((project, index) => ({
-    id: project.id,
-    name: project.title,
-    description: project.category + (project.client ? ` · ${project.client}` : ""),
-    image: project.screenshots[0],
-    color: projectColors[index] || "#1a1a1a"
-}));
+const CAROUSEL_ITEMS = works
+    .filter(project => project.screenshots && project.screenshots.length > 0)
+    .slice(0, 5)
+    .map((project, index) => ({
+        id: project.id,
+        name: project.title,
+        description: project.category,
+        image: project.screenshots?.[0] || "",
+        video: project.video,
+        color: projectColors[index] || "#1a1a1a"
+    }));
 
 const TikTokCarouselHero = () => {
     const navigate = useNavigate();
@@ -49,11 +53,13 @@ const TikTokCarouselHero = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    const activeDataIndex = CAROUSEL_ITEMS.length > 0
-        ? ((activeIndex % CAROUSEL_ITEMS.length) + CAROUSEL_ITEMS.length) % CAROUSEL_ITEMS.length
-        : 0;
+    if (CAROUSEL_ITEMS.length === 0) {
+        return null;
+    }
 
-    const activeColor = CAROUSEL_ITEMS.length > 0 ? CAROUSEL_ITEMS[activeDataIndex].color : "#1a1a1a";
+    const activeDataIndex = ((activeIndex % CAROUSEL_ITEMS.length) + CAROUSEL_ITEMS.length) % CAROUSEL_ITEMS.length;
+
+    const activeColor = CAROUSEL_ITEMS[activeDataIndex].color;
 
     return (
         <section className="relative w-full h-screen overflow-hidden bg-black pt-20">
@@ -116,6 +122,8 @@ const TikTokCarouselHero = () => {
 
                             const dataIndex = ((i % CAROUSEL_ITEMS.length) + CAROUSEL_ITEMS.length) % CAROUSEL_ITEMS.length;
                             const item = CAROUSEL_ITEMS[dataIndex];
+
+                            if (!item) return null;
 
                             // Calculate transforms for the curved TikTok style effect
                             const rotateZ = distance * 8;
@@ -188,7 +196,9 @@ const TikTokCarouselHero = () => {
                                                 }}
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-                                                    navigate(`/contact`);
+                                                    if (isActive) {
+                                                        navigate(`/work/${item.id}`);
+                                                    }
                                                 }}
                                             >
                                                 Know More

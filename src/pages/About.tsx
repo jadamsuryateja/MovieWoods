@@ -47,6 +47,18 @@ const HighlightWord = ({ children, range, progress }: { children: React.ReactNod
 
 const About = () => {
   const { setCursorType } = useCursor();
+
+  useEffect(() => {
+    // Handle scroll to section if hash is present
+    if (window.location.hash === "#services") {
+      const element = document.getElementById("services");
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 500); // Small delay to wait for page transition
+      }
+    }
+  }, []);
   const heroRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -217,62 +229,153 @@ const About = () => {
             </div>
           </section>
 
-          {/* Story with Highlight Reveal & Core Services */}
-          <section className="px-6 md:px-24">
-            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+          {/* Story with Highlight Reveal */}
+          <section className="px-6 md:px-24 py-32 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
+              <img src="/assets/story-bg.webp" alt="" className="w-full h-full object-cover grayscale" />
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black" />
+            </div>
+
+            <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
               <div className="lg:col-span-4">
                 <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Our Narrative</p>
+                <div className="w-32 h-[1px] bg-primary/30 mb-8" />
               </div>
               <div className="lg:col-span-8">
                 <WordHighlight text="DreamsWood VFX Studio is a dynamic Visual Effects and Post-Production Company that brings imagination to life on screen. The studio specializes in delivering high-quality visual effects for film, digital media, commercials, and streaming content." />
 
-                <p className="mt-12 text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest mb-16">
-                  With a strong focus on precision, creativity, and storytelling, Dreams Wood VFX transforms creative ideas into visually stunning cinematic experiences. At the heart of the studio is a team of skilled artists and technicians dedicated to excellence in every frame.
-                </p>
+                <div className="mt-12 space-y-8">
+                  <p className="text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest">
+                    With a strong focus on precision, creativity, and storytelling, Dreams Wood VFX transforms creative ideas into visually stunning cinematic experiences. At the heart of the studio is a team of skilled artists and technicians dedicated to excellence in every frame.
+                  </p>
 
-                <div className="space-y-12">
-                  <h4 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-white">Core Services</h4>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
-                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Rotoscoping (Roto)</h5>
-                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Frame-by-frame isolation of elements for seamless integration.</p>
+                  <div className="grid grid-cols-2 gap-4 h-48">
+                    <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+                      <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover" />
                     </div>
-
-                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
-                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Paint/Prep</h5>
-                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Cleaning up footage by removing unwanted elements like rigs or imperfections.</p>
-                    </div>
-
-                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
-                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Compositing</h5>
-                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Blending live-action and digital elements to create cohesive, emotionally engaging visuals.</p>
-                    </div>
-
-                    <div className="p-6 bg-white/[0.02] border border-white/5 hover:border-primary/30 transition-colors">
-                      <h5 className="text-lg font-bold text-primary uppercase tracking-widest mb-3">Matchmove & Tracking</h5>
-                      <p className="text-white/50 text-xs md:text-sm font-mono uppercase tracking-wider leading-relaxed">Aligning CG elements perfectly with real camera motion for realistic effects.</p>
+                    <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+                      <img src="/assets/philosophy-bg.webp" alt="" className="w-full h-full object-cover scale-150" />
                     </div>
                   </div>
+
+                  <p className="text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest italic border-l-2 border-primary pl-6">
+                    Driven by passion and technical expertise, Dreams Wood VFX Studio helps filmmakers, creators, and brands turn their visions into unforgettable on-screen moments.
+                  </p>
                 </div>
+              </div>
+            </div>
+          </section>
 
-                <p className="mt-16 text-white/60 text-sm md:text-base leading-relaxed font-mono uppercase tracking-widest italic border-l-2 border-primary pl-6">
-                  Driven by passion and technical expertise, Dreams Wood VFX Studio helps filmmakers, creators, and brands turn their visions into unforgettable on-screen moments.
-                </p>
+          {/* Full-Width Core Services Section */}
+          <section id="services" className="px-6 md:px-24 relative">
+            <div className="absolute inset-0 opacity-5 pointer-events-none">
+              <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover mix-blend-screen" />
+            </div>
 
+            <div className="max-w-7xl mx-auto border-t border-white/5 pt-24 relative z-10">
+              <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-12 mb-20">
+                <div className="max-w-2xl">
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Technical Expertise</p>
+                  <h4 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-white leading-[0.85]">
+                    Core <br /><span className="text-primary italic">Services</span>
+                  </h4>
+                </div>
+                <div className="lg:max-w-xs text-left lg:text-right">
+                  <p className="text-white/40 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] leading-relaxed">
+                    A comprehensive suite of high-end VFX solutions, meticulously crafted to elevate every frame of your production.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px bg-white/10 border border-white/10 overflow-hidden"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = ((e.clientX - rect.left) / rect.width) * 100;
+                  const y = ((e.clientY - rect.top) / rect.height) * 100;
+                  e.currentTarget.style.setProperty('--mouse-x', `${x}%`);
+                  e.currentTarget.style.setProperty('--mouse-y', `${y}%`);
+                }}
+              >
+                {[
+                  { title: "Match-Moving", desc: "Precision camera and object tracking for CG integration." },
+                  { title: "Modeling", desc: "Detailed 3D assets and environment creation." },
+                  { title: "Texturing", desc: "Realistic surfaces and materials." },
+                  { title: "Look Dev", desc: "Defining visual response for digital elements." },
+                  { title: "Rigging", desc: "Skeletal systems for fluid character motion." },
+                  { title: "Animation", desc: "Bringing digital characters to life." },
+                  { title: "FX Simulations", desc: "Fire, water, and particle effects." },
+                  { title: "Lighting", desc: "Cinematic illumination and blending." },
+                  { title: "Rendering", desc: "High-quality image generation." },
+                  { title: "Rotoscoping", desc: "Precision isolation and masking." },
+                  { title: "Paint", desc: "Clean-up and wire removal." },
+                  { title: "Compositing", desc: "Final cinematic blend." },
+                  { title: "Quality Control", desc: "Rigorous technical inspection." },
+                  { title: "QC & Review", desc: "Creative vision alignment." },
+                  { title: "Final Delivery", desc: "Industry-standard masters." }
+                ].map((service, index) => (
+                  <div
+                    key={index}
+                    className="group relative p-8 md:p-10 bg-[#070707] hover:bg-black transition-colors duration-500 overflow-hidden min-h-[220px] flex flex-col justify-between"
+                  >
+                    {/* Interactive Spotlight Effect */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,50%)_var(--mouse-y,50%),rgba(184,153,92,0.12)_0%,transparent_60%)]" />
+                    </div>
+
+                    {/* Tech Background Pattern */}
+                    <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.07] transition-opacity duration-700 pointer-events-none">
+                      <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover scale-150" />
+                    </div>
+
+                    {/* Tech Corners */}
+                    <div className="absolute top-0 right-0 w-8 h-8 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <div className="absolute top-4 right-4 w-[1px] h-2 bg-primary/40" />
+                      <div className="absolute top-4 right-4 w-2 h-[1px] bg-primary/40" />
+                    </div>
+
+                    <div className="relative z-10">
+                      <span className="text-[10px] font-mono text-primary/30 mb-6 block group-hover:text-primary transition-colors">
+                        /{(index + 1).toString().padStart(2, '0')}
+                      </span>
+
+                      <h5 className="text-xl md:text-2xl font-bold text-white uppercase tracking-tighter mb-4 group-hover:translate-x-2 transition-transform duration-500">
+                        {service.title}
+                      </h5>
+                    </div>
+
+                    <div className="relative z-10">
+                      <p className="text-white/30 text-[10px] md:text-xs font-mono uppercase tracking-widest leading-relaxed group-hover:text-white/60 transition-colors duration-500">
+                        {service.desc}
+                      </p>
+                    </div>
+
+                    {/* Bottom accent */}
+                    <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/5 group-hover:bg-primary/50 transition-colors duration-500" />
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* Philosophy Section */}
-          <section className="px-6 md:px-24 flex items-center justify-center">
-            <div className="max-w-4xl text-center">
-              <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-8">Philosophy</p>
+          <section className="px-6 md:px-24 py-40 flex items-center justify-center relative overflow-hidden">
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <img src="/assets/philosophy-bg.webp" alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+              <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-black to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-black to-transparent" />
+            </div>
+
+            <div className="max-w-4xl text-center relative z-10">
+              <div className="inline-block px-4 py-1 border border-primary/30 rounded-full mb-8">
+                <p className="text-[8px] uppercase tracking-[0.4em] text-primary font-bold">Studio Philosophy</p>
+              </div>
               <FadeSection>
-                <h3 className="text-3xl md:text-6xl font-black uppercase tracking-tighter leading-[1.1] mb-12">
-                  Combining <span className="text-primary italic">artistic</span> talent with <br />cutting-edge technology.
+                <h3 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-[1] mb-12">
+                  Combining <span className="text-primary italic underline decoration-white/10 underline-offset-8">artistic</span> talent <br />with technology.
                 </h3>
-                <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-mono uppercase tracking-widest">
+                <p className="text-white/40 text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-mono uppercase tracking-widest bg-black/40 backdrop-blur-md p-6 border border-white/5 rounded-sm">
                   Beyond our core services, the studio also works on 3D modeling, animation, rendering, and high-end tracking to enhance storytelling for projects of all sizes.
                 </p>
               </FadeSection>
@@ -280,8 +383,13 @@ const About = () => {
           </section>
 
           {/* Why Dreamswood Cards */}
-          <section className="px-6 md:px-24 max-w-7xl mx-auto">
-            <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold mb-16 text-center">Why Dreamswood Studios?</p>
+          <section className="px-6 md:px-24 max-w-7xl mx-auto pb-40">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+              <div className="h-[1px] flex-1 bg-white/10" />
+              <p className="text-[10px] uppercase tracking-[0.4em] text-primary font-bold">Why Dreamswood Studios?</p>
+              <div className="h-[1px] flex-1 bg-white/10" />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
@@ -299,10 +407,16 @@ const About = () => {
               ].map((item, i) => (
                 <FadeSection key={i} className="group relative p-8 md:p-12 bg-white/[0.02] border border-white/[0.05] hover:border-primary/50 transition-all duration-500 overflow-hidden">
                   <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-500" />
-                  <h4 className="text-xl md:text-2xl font-bold mb-6 uppercase tracking-tighter group-hover:text-primary transition-colors">
+
+                  {/* Subtle hover background image */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-[0.05] transition-opacity duration-1000">
+                    <img src="/assets/services-detail.webp" alt="" className="w-full h-full object-cover grayscale" />
+                  </div>
+
+                  <h4 className="text-xl md:text-2xl font-bold mb-6 uppercase tracking-tighter group-hover:text-primary transition-colors relative z-10">
                     {item.title}
                   </h4>
-                  <p className="text-white/50 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider">
+                  <p className="text-white/50 text-xs md:text-sm leading-relaxed font-mono uppercase tracking-wider relative z-10">
                     {item.desc}
                   </p>
                   <div className="absolute -bottom-8 -right-8 text-white/[0.03] text-[10rem] font-black group-hover:text-white/[0.05] transition-colors pointer-events-none">

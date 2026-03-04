@@ -52,23 +52,35 @@ const ProjectDetail = () => {
                         transition={{ duration: 0.8 }}
                         className="text-center"
                     >
-                        <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">{project.category} {project.client ? `· ${project.client}` : ""}</p>
+                        <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">{project.category}</p>
                         <h1 className="text-5xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter leading-none mb-12">
                             {project.title}
                         </h1>
                     </motion.div>
                 </div>
 
-                {/* Main Video/Hero */}
+                {/* Main Media/Hero */}
                 <div className="max-w-[1400px] mx-auto mb-24 aspect-video bg-neutral-900 rounded-sm overflow-hidden relative shadow-2xl">
-                    <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        src={project.video}
-                        className="w-full h-full object-cover"
-                    />
+                    {project.video ? (
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            src={project.video}
+                            className="w-full h-full object-cover"
+                        />
+                    ) : project.screenshots && project.screenshots.length > 0 ? (
+                        <img
+                            src={project.screenshots[0]}
+                            className="w-full h-full object-cover"
+                            alt={project.title}
+                        />
+                    ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                            <span className="text-white/10 text-xs uppercase tracking-widest font-mono">No Media Available</span>
+                        </div>
+                    )}
                     <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
                 </div>
 
@@ -77,7 +89,7 @@ const ProjectDetail = () => {
                     <div className="md:col-span-8">
                         <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tight mb-8">The Challenge</h2>
                         <p className="text-white/60 text-lg leading-relaxed max-w-2xl mb-12">
-                            We collaborated closely with {project.client || "the client"} to deliver high-end visual solutions for "{project.title}". Our team executed complex VFX sequences and color grading to ensure a cinematic experience that pushes the boundaries of digital production.
+                            We collaborated closely to deliver high-end visual solutions for "{project.title}". Our team executed complex VFX sequences and color grading to ensure a cinematic experience that pushes the boundaries of digital production.
                         </p>
                     </div>
 
@@ -86,20 +98,12 @@ const ProjectDetail = () => {
                             <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-2">Category</p>
                             <p className="text-white font-bold">{project.category}</p>
                         </div>
-                        <div className="mb-8">
-                            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-2">Client</p>
-                            <p className="text-white font-bold">{project.client || "Various"}</p>
-                        </div>
-                        <div className="mb-8">
-                            <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-2">Year</p>
-                            <p className="text-white font-bold">2024</p>
-                        </div>
                     </div>
                 </div>
 
                 {/* Images Grid */}
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-                    {project.screenshots.map((s, idx) => (
+                    {(project.video ? project.screenshots : project.screenshots.slice(1)).map((s, idx) => (
                         <motion.div
                             key={idx}
                             className="aspect-video bg-neutral-900 rounded-sm overflow-hidden"

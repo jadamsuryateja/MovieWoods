@@ -18,13 +18,13 @@ interface LoaderProps {
 }
 
 const Loader = ({ onComplete }: LoaderProps) => {
-    const [phase, setPhase] = useState<"dw" | "moviewoods" | "grid">("dw");
+    const [phase, setPhase] = useState<"dw" | "dreamswood" | "grid">("dw");
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        // 1. DW minimizes, MOVIEWOODS expands
+        // 1. DW minimizes, DREAMSWOOD expands
         const timer1 = setTimeout(() => {
-            setPhase("moviewoods");
+            setPhase("dreamswood");
         }, 800); // Wait 0.8s on just "DW"
 
         // 2. The background image grid fades in

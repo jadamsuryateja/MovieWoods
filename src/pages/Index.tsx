@@ -7,6 +7,7 @@ import TikTokCarouselHero from "@/components/TikTokCarouselHero";
 import MagneticElement from "@/components/MagneticElement";
 import { useCursor } from "@/context/CursorContext";
 import SectionNavigator from "@/components/SectionNavigator";
+import { works } from "@/data/works";
 
 const sections = [
   { id: "hero", label: "Home" },
@@ -134,14 +135,14 @@ const Index = () => {
                       Core <br /><span className="text-white [-webkit-text-stroke:0px] italic">VFX Work</span>
                     </h3>
                     <p className="text-muted text-sm max-w-md leading-relaxed">
-                      This is the core phase of the pipeline. From Rotoscoping, Paint, and Match-Moving to Lighting, Rendering, and Compositing, we transform captured footage and blend live-action with digital elements to create cohesive, emotionally engaging visuals.
+                      This is the core phase of the pipeline. From Match-Moving, Modeling, and Animation to FX Simulations, Lighting, and Compositing, we transform captured footage and blend digital elements to create cohesive, emotionally engaging visuals.
                     </p>
                   </div>
                   <motion.div
                     style={{ y: useTransform(horizontalScroll, [0.4, 0.75], [100, -100]) }}
                     className="flex-1 h-[60vh] relative hidden md:block"
                   >
-                    <video autoPlay loop muted playsInline src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" />
+                    <video autoPlay loop muted playsInline src="/assets/works/commercial_01.mp4" className="w-full h-full object-cover grayscale brightness-75 rounded-sm" />
                   </motion.div>
                 </div>
               </div>
@@ -153,20 +154,88 @@ const Index = () => {
                   <h3 className="text-5xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-12">
                     The Final <br /><span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Master</span>
                   </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                    {works.slice(0, 4).map((project) => {
+                      const [isHovered, setIsHovered] = useState(false);
+                      return (
+                        <motion.div
+                          key={project.id}
+                          initial={{ opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.8 }}
+                          className="group relative aspect-[16/10] overflow-hidden rounded-sm bg-neutral-900"
+                          onMouseEnter={() => {
+                            setCursorType("hover");
+                            setIsHovered(true);
+                          }}
+                          onMouseLeave={() => {
+                            setCursorType("default");
+                            setIsHovered(false);
+                          }}
+                        >
+                          <Link to={`/work/${project.id}`} className="block w-full h-full">
+                            <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-105">
+                              {project.video ? (
+                                <video
+                                  src={project.video}
+                                  autoPlay
+                                  muted
+                                  loop
+                                  playsInline
+                                  className={`w-full h-full object-cover transition-all duration-700 ${isHovered
+                                    ? "grayscale-0 brightness-100"
+                                    : "grayscale brightness-50"
+                                    }`}
+                                />
+                              ) : project.screenshots && project.screenshots.length > 0 ? (
+                                <img
+                                  src={project.screenshots[0]}
+                                  alt={project.title}
+                                  className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">
+                                  <div className="w-full h-full border border-white/5 flex items-center justify-center">
+                                    <span className="text-white/10 text-[10px] uppercase tracking-[0.4em] font-mono">No Preview</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                            {/* Overlay for text and hover effects */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-6">
+                              <h4 className="text-xl font-bold text-white mb-2">{project.title}</h4>
+                              <p className="text-sm text-white/70">{project.category}</p>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
                   <MagneticElement strength={0.1}>
                     <Link
                       to="/work"
-                      className="group relative flex items-center justify-center px-12 py-5 bg-transparent border border-white/20 hover:border-primary transition-all duration-500 overflow-hidden"
+                      className="group relative inline-flex items-center gap-4 px-12 py-5 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-14 mt-12"
                       onMouseEnter={() => setCursorType("hover")}
                       onMouseLeave={() => setCursorType("default")}
                     >
-                      <span className="text-xs md:text-sm uppercase tracking-[0.3em] font-bold text-background group-hover:text-white z-10 transition-colors duration-500 mix-blend-difference">
-                        VIEW WORKS
+                      <span className="text-xs md:text-sm uppercase tracking-[0.3em] font-black z-10">
+                        Explore Full Portfolio
                       </span>
 
-                      {/* Hover UI accent */}
-                      <div className="absolute inset-0 bg-primary/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-700 ease-[0.16, 1, 0.3, 1]" />
-                      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 delay-100" />
+                      {/* Arrow Icon */}
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="transition-transform duration-500 group-hover:translate-x-1"
+                      >
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+
+                      {/* Hover Shine Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                     </Link>
                   </MagneticElement>
                 </div>
@@ -176,6 +245,123 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Technical Expertise & Core Services Section */}
+        <section className="relative min-h-screen bg-black overflow-hidden py-24 md:py-40">
+          {/* Background Elements */}
+          <div className="absolute inset-0 z-0">
+            <motion.div
+              style={{ y: useTransform(scrollYProgress, [0.3, 0.7], [0, -200]) }}
+              className="absolute inset-0 opacity-20 pointer-events-none"
+            >
+              <img src="/assets/story-bg.webp" className="w-full h-full object-cover" alt="" />
+            </motion.div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-24 items-center">
+              {/* Left Column: Visual Content */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative"
+              >
+                <div className="relative aspect-[4/5] md:aspect-square overflow-hidden rounded-sm group">
+                  <motion.img
+                    src="/assets/services-detail.webp"
+                    className="w-full h-full object-cover grayscale brightness-75 transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                    alt="Technical Expertise"
+                  />
+                  {/* Glassmorphism Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                    <p className="text-primary text-xs uppercase tracking-[0.4em] font-bold mb-4">Precision Engineering</p>
+                    <h4 className="text-2xl font-black uppercase text-white">Technical Excellence</h4>
+                  </div>
+                </div>
+
+                {/* Floating Accent Image */}
+                <motion.div
+                  style={{ y: useTransform(scrollYProgress, [0.4, 0.6], [50, -50]) }}
+                  className="absolute -bottom-12 -right-12 w-48 h-48 md:w-64 md:h-64 rounded-sm overflow-hidden border border-white/10 shadow-2xl z-20 hidden lg:block"
+                >
+                  <img src="/assets/philosophy-bg.webp" className="w-full h-full object-cover grayscale brightness-75" alt="" />
+                  <div className="absolute inset-0 bg-primary/20 mix-blend-overlay" />
+                </motion.div>
+              </motion.div>
+
+              {/* Right Column: Textual Content */}
+              <div className="flex flex-col gap-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">Technical Expertise</p>
+                  <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none mb-8">
+                    Advanced <br />
+                    <span className="text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.5)]">Pipeline</span>
+                  </h2>
+                  <p className="text-white/60 text-lg leading-relaxed max-w-xl">
+                    Our studio leverages state-of-the-art computational tools and customized VFX pipelines to deliver cinematic results that previously required massive infrastructure.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                  className="pt-12 border-t border-white/10"
+                >
+                  <p className="text-xs uppercase tracking-[0.4em] font-bold text-primary mb-6">Core Services</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
+                    {[
+                      { title: "VFX Production", desc: "Complex 3D integration, simulations, and invisible effects." },
+                      { title: "Post-Production", desc: "Full-service editing, compositing, and final delivery." },
+                      { title: "Color Grading", desc: "Cinematic look development and technical color correction." },
+                      { title: "CGI & Animation", desc: "Photorealistic character work and environmental design." }
+                    ].map((service, i) => (
+                      <div key={i} className="group">
+                        <h4 className="text-white font-bold uppercase tracking-widest text-sm mb-2 group-hover:text-primary transition-colors">{service.title}</h4>
+                        <p className="text-white/40 text-xs leading-relaxed">{service.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <MagneticElement strength={0.1}>
+                    <Link
+                      to="/about#services"
+                      className="group relative inline-flex items-center gap-4 px-8 py-4 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:pr-10"
+                      onMouseEnter={() => setCursorType("hover")}
+                      onMouseLeave={() => setCursorType("default")}
+                    >
+                      <span className="text-[10px] uppercase tracking-[0.3em] font-black z-10">
+                        Explore All 15 Services
+                      </span>
+
+                      {/* Arrow Icon */}
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className="transition-transform duration-500 group-hover:translate-x-1"
+                      >
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+
+                      {/* Hover Shine Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    </Link>
+                  </MagneticElement>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Why Dreamswood Studios Section */}
         <section id="why-us" className="py-24 md:py-40 bg-black text-white overflow-hidden relative">
