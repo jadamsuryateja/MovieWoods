@@ -90,7 +90,7 @@ const About = () => {
         <motion.section
           ref={heroRef}
           style={{ opacity: heroOpacity, y: heroY }}
-          className="relative h-screen flex items-center justify-center px-6 overflow-hidden"
+          className="relative h-[80vh] md:h-screen flex items-center justify-center px-6 overflow-hidden"
         >
           {/* Drifting Background Text */}
           <motion.div
@@ -135,19 +135,19 @@ const About = () => {
         </motion.section>
 
         {/* --- Content Sections --- */}
-        <div className="relative z-10 space-y-48 md:space-y-64 pb-40">
+        <div className="relative z-10 space-y-8 md:space-y-48 pb-20 md:pb-40">
 
           {/* Leadership Section - Redesigned Asymmetric */}
           <section className="px-6 md:px-24">
             <div className="max-w-7xl mx-auto">
               {teamMembers.map((member) => (
-                <div key={member.name} className="relative w-full pt-20">
+                <div key={member.name} className="relative w-full pt-10 md:pt-20">
 
                   {/* Background Accents */}
                   <div className="absolute top-0 right-10 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
                   {/* Editorial Grid Layout */}
-                  <div className="grid flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+                  <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
 
                     {/* Left Typography Block */}
                     <div className="lg:col-span-7 relative z-10 flex flex-col justify-center order-2 lg:order-1 mt-8 lg:mt-0">
@@ -207,13 +207,13 @@ const About = () => {
                         whileInView={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
                         viewport={{ once: true }}
                         transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-                        className="relative w-full max-w-[320px] lg:max-w-[400px] aspect-[4/5] md:aspect-square overflow-hidden bg-black/10 z-10 shadow-2xl flex items-center justify-center p-4"
+                        className="relative w-full max-w-[90vw] md:max-w-[400px] aspect-[4/5] overflow-hidden bg-black/10 z-10 shadow-2xl flex items-center justify-center p-2 md:p-4"
                       >
                         {member.image && (
                           <motion.img
                             src={member.image}
                             alt={`${member.name} | ${member.role} at Dreamswood VFX Studio`}
-                            className="w-full h-full object-contain transition-all duration-[2s] hover:scale-110 cursor-none"
+                            className="w-full h-full object-cover object-top transition-all duration-[2s] hover:scale-110 cursor-none"
                             onMouseEnter={() => setCursorType("view")}
                             onMouseLeave={() => setCursorType("default")}
                           />
@@ -230,7 +230,7 @@ const About = () => {
           </section>
 
           {/* Story with Highlight Reveal */}
-          <section className="px-6 md:px-24 py-32 relative overflow-hidden">
+          <section className="px-6 md:px-24 py-16 md:py-32 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
               <img src="/assets/story-bg.webp" alt="Dreamswood Studio Story: A Legacy of Cinematic Visual Effects" className="w-full h-full object-cover grayscale" />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent to-black" />
@@ -249,12 +249,12 @@ const About = () => {
                     With a strong focus on precision, creativity, and storytelling, Dreams Wood VFX transforms creative ideas into visually stunning cinematic experiences. At the heart of the studio is a team of skilled artists and technicians dedicated to excellence in every frame.
                   </p>
 
-                  <div className="grid grid-cols-2 gap-4 h-48">
-                    <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-sm overflow-hidden border border-white/5 aspect-video">
                       <img src="/assets/services-detail.webp" alt="Dreamswood VFX Production: Technical Scene Breakdown and Rendering" className="w-full h-full object-cover" />
                     </div>
-                    <div className="rounded-sm overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-700">
-                      <img src="/assets/philosophy-bg.webp" alt="Advanced CGI Simulation: Fluid and Dynamics Artistry" className="w-full h-full object-cover scale-150" />
+                    <div className="rounded-sm overflow-hidden border border-white/5 aspect-video">
+                      <img src="/assets/philosophy-bg.webp" alt="Advanced CGI Simulation: Fluid and Dynamics Artistry" className="w-full h-full object-cover" />
                     </div>
                   </div>
 
