@@ -110,7 +110,7 @@ const Contact = () => {
               <MagneticElement strength={0.15}>
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center px-10 py-4 bg-foreground text-background text-xs font-bold uppercase tracking-[0.3em] hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+                  className="inline-flex items-center justify-center px-10 py-4 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-[0.3em] hover:bg-white hover:text-black transition-colors duration-300"
                   data-cursor="VIEW"
                 >
                   Send Message

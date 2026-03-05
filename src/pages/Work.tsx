@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { works, categories } from "@/data/works";
 import PageTransition from "@/components/PageTransition";
 import { useCursor } from "@/context/CursorContext";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Work = () => {
-    const [filter, setFilter] = useState("All");
+    const { category } = useParams();
+    const navigate = useNavigate();
     const { setCursorType } = useCursor();
 
-    const filteredWorks = filter === "All"
+    // Helper to slugify categories for URLs
+    const slugify = (text: string) => text.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
+    const unslugify = (slug: string) => {
+        const found = categories.find(cat => slugify(cat) === slug);
+        return found || "All";
+    };
+
+    const currentFilter = category ? unslugify(category) : "All";
+
+    const filteredWorks = currentFilter === "All"
         ? works
-        : works.filter(w => w.category === filter);
+        : works.filter(w => w.category === currentFilter);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -51,30 +61,36 @@ const Work = () => {
 
                 {/* Filters */}
                 <div className="max-w-7xl mx-auto mb-12 flex flex-wrap justify-center md:justify-start gap-4 md:gap-8 overflow-x-auto pb-4 no-scrollbar">
-                    {categories.map((cat) => (
-                        <button
-                            key={cat}
-                            onClick={() => setFilter(cat)}
-                            onMouseEnter={() => setCursorType("hover")}
-                            onMouseLeave={() => setCursorType("default")}
-                            className={`text - [10px] md: text - xs uppercase tracking - [0.3em] font - bold transition - all duration - 300 relative py - 2 ${filter === cat ? "text-white" : "text-white/40 hover:text-white/70"
-                                } `}
-                        >
-                            {cat}
-                            {filter === cat && (
-                                <motion.div
-                                    layoutId="activeFilter"
-                                    className="absolute bottom-0 left-0 right-0 h-[1px] bg-primary"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            )}
-                        </button>
-                    ))}
+                    {categories.map((cat) => {
+                        const isSelected = currentFilter === cat;
+                        const slug = slugify(cat);
+                        const path = cat === "All" ? "/work" : `/work/category/${slug}`;
+
+                        return (
+                            <Link
+                                key={cat}
+                                to={path}
+                                onMouseEnter={() => setCursorType("hover")}
+                                onMouseLeave={() => setCursorType("default")}
+                                className={`text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold transition-all duration-300 relative py-2 ${isSelected ? "text-white" : "text-white/40 hover:text-white/70"
+                                    }`}
+                            >
+                                {cat}
+                                {isSelected && (
+                                    <motion.div
+                                        layoutId="activeFilter"
+                                        className="absolute bottom-0 left-0 right-0 h-[1px] bg-primary"
+                                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    />
+                                )}
+                            </Link>
+                        );
+                    })}
                 </div>
 
                 {/* Works Grid */}
                 <motion.div
-                    key={filter}
+                    key={currentFilter}
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"

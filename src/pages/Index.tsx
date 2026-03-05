@@ -67,7 +67,7 @@ const Index = () => {
         </div>
 
         {/* Horizontal Scroll Gallery (The Process) */}
-        <section id="process" ref={horizontalRef} className="relative h-[400vh] bg-foreground text-background">
+        <section id="process" ref={horizontalRef} className="relative h-[400vh] bg-black text-white">
           <div className="sticky top-0 h-screen overflow-hidden flex items-center">
 
             {/* Background Marquee for texture */}
@@ -455,7 +455,7 @@ const Index = () => {
         </section>
 
         {/* Studio Vision Section */}
-        <section id="vision" className="py-40 bg-foreground text-background overflow-hidden relative">
+        <section id="vision" className="py-40 bg-black text-white overflow-hidden relative">
           <motion.div
             style={{ x: useTransform(scrollYProgress, [0.6, 1], ["0%", "-50%"]) }}
             className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap opacity-[0.03] select-none pointer-events-none flex"
