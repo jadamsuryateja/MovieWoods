@@ -380,7 +380,7 @@ const Index = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
+                  className="w-full md:w-1/2 relative aspect-[3/2] overflow-hidden rounded-sm"
                 >
                   <img src="/assets/capabilities/vfx.webp" alt="High-Quality Visual Effects and CGI Output by Dreamswood" className="absolute inset-0 w-full h-full object-cover transition-all duration-700" />
                 </motion.div>
@@ -406,7 +406,7 @@ const Index = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
+                  className="w-full md:w-1/2 relative aspect-[3/2] overflow-hidden rounded-sm"
                 >
                   <img src="/assets/capabilities/color.webp" alt="Cinematic Color Grading and Post-Production Services" className="absolute inset-0 w-full h-full object-cover transition-all duration-700" />
                 </motion.div>
@@ -432,7 +432,7 @@ const Index = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full md:w-1/2 relative h-[300px] md:h-[600px] overflow-hidden rounded-sm"
+                  className="w-full md:w-1/2 relative aspect-[3/2] overflow-hidden rounded-sm"
                 >
                   <img src="/assets/capabilities/motion.webp" alt="Motion Graphics and Dynamic Digital Content Creation" className="absolute inset-0 w-full h-full object-cover transition-all duration-700" />
                 </motion.div>
