@@ -137,7 +137,7 @@ const TikTokCarouselHero = () => {
                             return (
                                 <motion.div
                                     key={i}
-                                    className="absolute top-1/2 left-1/2 w-[280px] sm:w-[320px] aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer"
+                                    className={`absolute top-1/2 left-1/2 w-[280px] sm:w-[320px] ${works.find(w => w.id === item.id)?.aspectRatio === "portrait" ? "aspect-[2/3]" : "aspect-[3/4]"} rounded-3xl overflow-hidden cursor-pointer`}
                                     style={{
                                         transformOrigin: "bottom center",
                                         zIndex,
@@ -166,7 +166,7 @@ const TikTokCarouselHero = () => {
                                         <img
                                             src={item.image}
                                             alt={item.name}
-                                            className="absolute inset-0 w-full h-full object-cover"
+                                            className={`absolute inset-0 w-full h-full ${works.find(w => w.id === item.id)?.aspectRatio === "portrait" ? "object-contain bg-black/40" : "object-cover"}`}
                                         />
                                         {/* Shadow overlay at bottom */}
                                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />

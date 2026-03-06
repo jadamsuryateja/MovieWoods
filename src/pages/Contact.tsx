@@ -2,9 +2,24 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "@/components/PageTransition";
 import MagneticElement from "@/components/MagneticElement";
+import useSEO from "@/hooks/useSEO";
 
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+
+  useSEO({
+    title: "Contact Us | Start Your Next VFX Project",
+    description: "Ready to elevate your production? Contact Dreamswood's studios in Jubilee Hills, Hyderabad. Let's discuss your visual effects and animation needs.",
+  });
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dreamswood.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://dreamswood.com/contact" }
+    ]
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,6 +31,9 @@ const Contact = () => {
 
   return (
     <PageTransition>
+      <script type="application/ld+json">
+        {JSON.stringify(breadcrumbSchema)}
+      </script>
       <div className="pt-28 pb-20 px-6 md:px-16 min-h-screen">
         <h1 className="sr-only">Contact DreamsWood</h1>
 
@@ -30,13 +48,13 @@ const Contact = () => {
             <p className="text-xs uppercase tracking-[0.4em] text-primary font-semibold mb-8">Get in Touch</p>
 
             <a
-              href="mailto:hello@dreamswood.com"
+              href="mailto:dreamswoodvfx@gmail.com"
               className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tight text-foreground hover:text-primary transition-colors duration-300 break-all leading-tight"
               data-cursor="VIEW"
             >
-              hello@
+              dreamswoodvfx
               <br />
-              dreamswood
+              @gmail
               <br />
               .com
             </a>

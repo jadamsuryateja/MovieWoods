@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
+  { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61583643260393", label: "Facebook" },
+  { icon: Twitter, href: "https://x.com/DreamswoodVfx", label: "Twitter" },
+  { icon: Instagram, href: "https://www.instagram.com/dreamswoodvfx/", label: "Instagram" },
   { icon: Linkedin, href: "#", label: "LinkedIn" },
 ];
 
@@ -48,7 +48,7 @@ const Footer = () => {
         >
           <MagneticElement strength={0.2}>
             <a
-              href="mailto:hello@dreamswood.com"
+              href="mailto:dreamswoodvfx@gmail.com"
               className="relative w-40 h-16 md:w-56 md:h-20 rounded-xl border border-white/30 text-white flex items-center justify-center gap-3 font-bold text-sm md:text-lg uppercase tracking-widest hover:bg-white hover:text-black transition-all duration-500 overflow-hidden group"
               onMouseEnter={() => setCursorType("view")}
               onMouseLeave={() => setCursorType("default")}
@@ -72,8 +72,8 @@ const Footer = () => {
           <p className="text-sm font-mono leading-relaxed max-w-xs text-white/80">
             Mahaveer Radiance, Madhapur, Road No. 36, Jubilee Hills, Telangana 500033
           </p>
-          <a href="mailto:hello@dreamswood.com" className="inline-flex items-center gap-2 mt-6 mt-4 text-sm font-mono hover:text-primary transition-colors group">
-            hello@dreamswood.com
+          <a href="mailto:dreamswoodvfx@gmail.com" className="inline-flex items-center gap-2 mt-6 mt-4 text-sm font-mono hover:text-primary transition-colors group">
+            dreamswoodvfx@gmail.com
             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </a>
         </motion.div>

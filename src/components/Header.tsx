@@ -200,13 +200,17 @@ const Header = () => {
                 className="mt-auto"
               >
                 <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary mb-4">Connect</p>
-                <a href="mailto:hello@dreamswood.com" className="text-white/60 hover:text-white transition-colors text-sm font-semibold tracking-wider block mb-2">HELLO@DREAMSWOOD.COM</a>
+                <a href="mailto:dreamswoodvfx@gmail.com" className="text-white/60 hover:text-white transition-colors text-sm font-semibold tracking-wider block mb-2">DREAMSWOODVFX@GMAIL.COM</a>
                 <a href="tel:+1234567890" className="text-white/60 hover:text-white transition-colors text-sm font-semibold tracking-wider block mb-8">+1 (234) 567-890</a>
 
                 <p className="text-[10px] uppercase tracking-[0.4em] font-bold text-primary mb-4">Follow</p>
                 <div className="flex gap-4">
-                  {['Instagram', 'Vimeo', 'LinkedIn'].map(social => (
-                    <a key={social} href="#" className="text-white/60 hover:text-white transition-colors text-xs font-semibold tracking-widest uppercase">{social}</a>
+                  {[
+                    { label: 'Instagram', href: 'https://www.instagram.com/dreamswoodvfx/' },
+                    { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61583643260393' },
+                    { label: 'X', href: 'https://x.com/DreamswoodVfx' }
+                  ].map(social => (
+                    <a key={social.label} href={social.href} className="text-white/60 hover:text-white transition-colors text-xs font-semibold tracking-widest uppercase">{social.label}</a>
                   ))}
                 </div>
               </motion.div>

@@ -4,6 +4,7 @@ import PageTransition from "@/components/PageTransition";
 import { teamMembers } from "@/data/works";
 import MagneticElement from "@/components/MagneticElement";
 import { useCursor } from "@/context/CursorContext";
+import useSEO from "@/hooks/useSEO";
 
 const FadeSection = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <motion.div
@@ -48,6 +49,30 @@ const HighlightWord = ({ children, range, progress }: { children: React.ReactNod
 const About = () => {
   const { setCursorType } = useCursor();
 
+  useSEO({
+    title: "About Our Studio | Vision, Leadership & Philosophy",
+    description: "Learn about Dreamswood Vfx's legacy of cinematic excellence, our leadership in VFX supervision, and our commitment to bringing imagination to life.",
+  });
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dreamswood.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About",
+        "item": "https://dreamswood.com/about"
+      }
+    ]
+  };
+
   useEffect(() => {
     // Handle scroll to section if hash is present
     if (window.location.hash === "#services") {
@@ -78,6 +103,9 @@ const About = () => {
     <PageTransition>
       <div ref={containerRef} className="relative bg-[#0a0a0a] text-white overflow-hidden">
         {/* Cinematic Grid Background */}
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
         <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
           style={{
             backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)`,

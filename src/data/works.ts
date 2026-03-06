@@ -2,13 +2,30 @@ export interface Project {
     id: string;
     title: string;
     category: string;
-    video: string;
+    video?: string;
     screenshots: string[];
+    aspectRatio?: "video" | "original" | "portrait";
 }
 
-export const categories = ["All", "Commercials", "Film & TV", "Music Promos", "Sound"];
+export const categories = ["All", "Future Work", "Commercials", "Film & TV", "Music Promos", "Sound"];
 
 export const works: Project[] = [
+    {
+        id: "future-01",
+        title: "VIBHO - Cinematic Key Art",
+        category: "Future Work",
+        video: "",
+        screenshots: ["/assets/works/future work_01.webp"],
+        aspectRatio: "portrait"
+    },
+    {
+        id: "future-02",
+        title: "VIBHO - Creative Poster Art",
+        category: "Future Work",
+        video: "",
+        screenshots: ["/assets/works/future work_02.webp"],
+        aspectRatio: "portrait"
+    },
     {
         id: "comm-01",
         title: "High-End Commercial VFX",
@@ -67,45 +84,31 @@ export const works: Project[] = [
     },
     {
         id: "film-tv-01",
-        title: "Epic World Matte Painting",
+        title: "Sci-Fi Rooftop Showdown",
         category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_01.webp"]
+        video: "/assets/works/film and tv_01.mp4",
+        screenshots: []
     },
     {
         id: "film-tv-02",
-        title: "Sci-Fi Environment Design",
+        title: "Character Animation Study",
         category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_02.webp"]
+        video: "/assets/works/film and tv_02.mp4",
+        screenshots: []
     },
     {
         id: "film-tv-03",
-        title: "Historical Epic VFX",
+        title: "Spider-Man Motion Graphic",
         category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_03.webp"]
+        video: "/assets/works/film and tv_03.mp4",
+        screenshots: []
     },
     {
         id: "film-tv-04",
-        title: "Atmospheric Simulation",
+        title: "Biological Simulation Showcase",
         category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_04.webp"]
-    },
-    {
-        id: "film-tv-05",
-        title: "Digital Character Realism",
-        category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_05.webp"]
-    },
-    {
-        id: "film-tv-06",
-        title: "Action Sequence Mastery",
-        category: "Film & TV",
-        video: "",
-        screenshots: ["/assets/works/Film& tv_06.webp"]
+        video: "/assets/works/film and tv_04.mp4",
+        screenshots: []
     }
 ];
 

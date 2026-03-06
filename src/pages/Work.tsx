@@ -3,12 +3,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { works, categories } from "@/data/works";
 import PageTransition from "@/components/PageTransition";
 import { useCursor } from "@/context/CursorContext";
+import useSEO from "@/hooks/useSEO";
 import { useState } from "react";
 
 const Work = () => {
     const { category } = useParams();
     const navigate = useNavigate();
     const { setCursorType } = useCursor();
+
+    useSEO({
+        title: category ? `Projects: ${category}` : "Portfolio | Selected Works & Visual Alchemy",
+        description: "Explore Dreamswood Vfx's portfolio of high-end commercial VFX, cinematic film projects, and dynamic motion graphics. Award-winning visual storytelling.",
+    });
 
     // Helper to slugify categories for URLs
     const slugify = (text: string) => text.toLowerCase().replace(/ & /g, "-").replace(/ /g, "-");
@@ -22,6 +28,37 @@ const Work = () => {
     const filteredWorks = currentFilter === "All"
         ? works
         : works.filter(w => w.category === currentFilter);
+
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://dreamswood.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Work", "item": "https://dreamswood.com/work" }
+        ]
+    };
+
+    if (category) {
+        breadcrumbSchema.itemListElement.push({
+            "@type": "ListItem",
+            "position": 3,
+            "name": currentFilter,
+            "item": `https://dreamswood.com/work/category/${category}`
+        });
+    }
+
+    const collectionSchema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Dreamswood Portfolio",
+        "description": "Selected visual effects, CGI, and animation projects.",
+        "url": "https://dreamswood.com/work",
+        "hasPart": works.map(project => ({
+            "@type": "CreativeWork",
+            "name": project.title,
+            "url": `https://dreamswood.com/work/${project.id}`
+        }))
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -44,6 +81,12 @@ const Work = () => {
 
     return (
         <PageTransition>
+            <script type="application/ld+json">
+                {JSON.stringify(breadcrumbSchema)}
+            </script>
+            <script type="application/ld+json">
+                {JSON.stringify(collectionSchema)}
+            </script>
             <div className="min-h-screen bg-black pt-32 pb-24 px-6 md:px-12 lg:px-24">
                 {/* Header Section */}
                 <div className="max-w-7xl mx-auto mb-16 md:mb-24">

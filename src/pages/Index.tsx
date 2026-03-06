@@ -8,6 +8,7 @@ import MagneticElement from "@/components/MagneticElement";
 import { useCursor } from "@/context/CursorContext";
 import SectionNavigator from "@/components/SectionNavigator";
 import { works } from "@/data/works";
+import useSEO from "@/hooks/useSEO";
 
 const sections = [
   { id: "hero", label: "Home" },
@@ -22,6 +23,24 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
   const { setCursorType } = useCursor();
+
+  useSEO({
+    title: "Award-Winning Visual Effects & Post-Production Studio",
+    description: "Dreamswood Vfx is a world-class visual effects and animation studio delivering groundbreaking VFX, CGI, and immersive experiences for film, TV, and advertising.",
+  });
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://dreamswood.com/"
+      }
+    ]
+  };
 
   // Floating capabilities media tracker
   const [hoveredCapability, setHoveredCapability] = useState<number | null>(null);
@@ -52,7 +71,10 @@ const Index = () => {
   return (
     <PageTransition>
       <div ref={containerRef} className="relative">
-        <h1 className="sr-only">Dreamswood | Award-Winning Visual Effects & Post-Production Studio — VFX, CGI, and Animation</h1>
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+        <h1 className="sr-only">Dreamswood Vfx | Award-Winning Visual Effects & Post-Production Studio — VFX, CGI, and Animation</h1>
 
         <SectionNavigator sections={sections} />
 
@@ -189,7 +211,7 @@ const Index = () => {
                                 <img
                                   src={project.screenshots[0]}
                                   alt={project.title}
-                                  className="w-full h-full object-cover transition-all duration-700"
+                                  className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain px-8 py-4" : "object-cover"} transition-all duration-700`}
                                 />
                               ) : (
                                 <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">
