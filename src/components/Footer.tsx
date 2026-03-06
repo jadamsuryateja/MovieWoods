@@ -1,4 +1,4 @@
-import { Mail, Facebook, Twitter, Instagram, Linkedin, ArrowUpRight } from "lucide-react";
+import { Mail, Facebook, Twitter, Instagram, ArrowUpRight } from "lucide-react";
 import { useCursor } from "@/context/CursorContext";
 import MagneticElement from "./MagneticElement";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -9,7 +9,6 @@ const socialLinks = [
   { icon: Facebook, href: "https://www.facebook.com/profile.php?id=61583643260393", label: "Facebook" },
   { icon: Twitter, href: "https://x.com/DreamswoodVfx", label: "Twitter" },
   { icon: Instagram, href: "https://www.instagram.com/dreamswoodvfx/", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
 ];
 
 const pageLinks = [
