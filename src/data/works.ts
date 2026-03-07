@@ -41,27 +41,6 @@ export const works: Project[] = [
         screenshots: ["/assets/works/commercials_02.webp"]
     },
     {
-        id: "comm-03",
-        title: "Luxury Brand Aesthetics",
-        category: "Commercials",
-        video: "",
-        screenshots: ["/assets/works/commercials_03.webp"]
-    },
-    {
-        id: "comm-04",
-        title: "Urban Motion Dynamics",
-        category: "Commercials",
-        video: "",
-        screenshots: ["/assets/works/commercials_04.webp"]
-    },
-    {
-        id: "comm-05",
-        title: "Premium Tech Visuals",
-        category: "Commercials",
-        video: "",
-        screenshots: ["/assets/works/commercials_05.webp"]
-    },
-    {
         id: "comm-06",
         title: "Minimalist Product Flow",
         category: "Commercials",
@@ -80,6 +59,27 @@ export const works: Project[] = [
         title: "Cinematic Brand Story",
         category: "Commercials",
         video: "/assets/works/commercials_08.mp4",
+        screenshots: []
+    },
+    {
+        id: "comm-03",
+        title: "Creative Visual Post-Production",
+        category: "Commercials",
+        video: "/commercials_03.mp4",
+        screenshots: []
+    },
+    {
+        id: "comm-04",
+        title: "High-Impact Motion Graphics",
+        category: "Commercials",
+        video: "/commercials_04.mp4",
+        screenshots: []
+    },
+    {
+        id: "comm-05",
+        title: "Advanced Digital Compositing",
+        category: "Commercials",
+        video: "/commercials_05.mp4",
         screenshots: []
     },
     {
