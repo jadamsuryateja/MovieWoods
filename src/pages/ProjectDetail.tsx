@@ -147,19 +147,21 @@ const ProjectDetail = () => {
                 </div>
 
                 {/* Images Grid */}
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
-                    {(project.video ? project.screenshots : project.screenshots.slice(1)).map((s, idx) => (
-                        <motion.div
-                            key={idx}
-                            className={`bg-neutral-900 rounded-sm overflow-hidden ${project.aspectRatio === "portrait" ? "aspect-[2/3]" : "aspect-video"}`}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                        >
-                            <img src={s} className={`w-full h-full ${project.aspectRatio === "portrait" || project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale hover:grayscale-0 transition-all duration-700`} alt={`${project.title} Technical Showcase Detail - Image ${idx + 1}`} />
-                        </motion.div>
-                    ))}
-                </div>
+                {project.screenshots && project.screenshots.length > (project.video ? 0 : 1) && (
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+                        {(project.video ? project.screenshots : project.screenshots.slice(1)).map((s, idx) => (
+                            <motion.div
+                                key={idx}
+                                className={`bg-neutral-900 rounded-sm overflow-hidden ${project.aspectRatio === "portrait" ? "aspect-[2/3]" : "aspect-video"}`}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                            >
+                                <img src={s} className={`w-full h-full ${project.aspectRatio === "portrait" || project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale hover:grayscale-0 transition-all duration-700`} alt={`${project.title} Technical Showcase Detail - Image ${idx + 1}`} />
+                            </motion.div>
+                        ))}
+                    </div>
+                )}
 
                 {/* Footer CTA */}
                 <div className="max-w-7xl mx-auto flex flex-col items-center pt-24 border-t border-white/10">

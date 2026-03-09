@@ -120,10 +120,10 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
             {/* --- HUD OVERLAY --- */}
             <div className="absolute inset-0 pointer-events-none z-10">
                 {/* Corner Brackets */}
-                <div className="absolute top-6 left-6 w-12 h-12 border-t-2 border-l-2 border-primary/40" />
-                <div className="absolute top-6 right-6 w-12 h-12 border-t-2 border-r-2 border-primary/40" />
-                <div className="absolute bottom-6 left-6 w-12 h-12 border-b-2 border-l-2 border-primary/40" />
-                <div className="absolute bottom-6 right-6 w-12 h-12 border-b-2 border-r-2 border-primary/40" />
+                <div className="absolute top-2 left-2 sm:top-6 sm:left-6 w-6 h-6 sm:w-12 sm:h-12 border-t-2 border-l-2 border-primary/40" />
+                <div className="absolute top-2 right-2 sm:top-6 sm:right-6 w-6 h-6 sm:w-12 sm:h-12 border-t-2 border-r-2 border-primary/40" />
+                <div className="absolute bottom-2 left-2 sm:bottom-6 sm:left-6 w-6 h-6 sm:w-12 sm:h-12 border-b-2 border-l-2 border-primary/40" />
+                <div className="absolute bottom-2 right-2 sm:bottom-6 sm:right-6 w-6 h-6 sm:w-12 sm:h-12 border-b-2 border-r-2 border-primary/40" />
 
                 {/* Technical Info Overlays */}
                 <AnimatePresence>
@@ -134,7 +134,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className="absolute top-10 left-10 space-y-2"
+                                className="absolute top-4 left-4 sm:top-10 sm:left-10 space-y-1 sm:space-y-2 hidden sm:block"
                             >
                                 <div className="flex items-center gap-3">
                                     <Cpu size={14} className="text-primary animate-pulse" />
@@ -151,7 +151,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                                 initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: 20 }}
-                                className="absolute top-10 right-10 text-right space-y-2"
+                                className="absolute top-4 right-4 sm:top-10 sm:right-10 text-right space-y-1 sm:space-y-2 hidden sm:block"
                             >
                                 <div className="flex items-center justify-end gap-3">
                                     <p className="text-[8px] font-mono uppercase tracking-[0.2em] text-white/40">Bitrate: 45.2 MBPS</p>
@@ -168,7 +168,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 0.1, scale: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="absolute inset-0 flex items-center justify-center"
+                                className="absolute inset-0 flex items-center justify-center hidden sm:flex"
                             >
                                 <Target size={120} className="text-white" strokeWidth={0.5} />
                             </motion.div>
@@ -178,15 +178,15 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
             </div>
 
             {/* --- PROGRESS HUD (Always Visible) --- */}
-            <div className="absolute bottom-16 inset-x-10 z-20 pointer-events-none">
-                <div className="flex justify-between items-end mb-2">
+            <div className="absolute bottom-12 sm:bottom-16 inset-x-4 sm:inset-x-10 z-20 pointer-events-none">
+                <div className="flex justify-between items-end mb-1 sm:mb-2">
                     <div className="flex flex-col">
-                        <span className="text-[8px] font-mono text-white/40 uppercase tracking-widest mb-1">Timecode (Current)</span>
-                        <span className="text-sm font-mono text-primary font-black tracking-tighter">{currentTime}</span>
+                        <span className="text-[6px] sm:text-[8px] font-mono text-white/40 uppercase tracking-widest mb-1 hidden sm:block">Timecode (Current)</span>
+                        <span className="text-xs sm:text-sm font-mono text-primary font-black tracking-tighter">{currentTime}</span>
                     </div>
                     <div className="flex flex-col text-right">
-                        <span className="text-[8px] font-mono text-white/40 uppercase tracking-widest mb-1">Duration</span>
-                        <span className="text-sm font-mono text-white/80 font-black tracking-tighter">{duration}</span>
+                        <span className="text-[6px] sm:text-[8px] font-mono text-white/40 uppercase tracking-widest mb-1 hidden sm:block">Duration</span>
+                        <span className="text-xs sm:text-sm font-mono text-white/80 font-black tracking-tighter">{duration}</span>
                     </div>
                 </div>
                 {/* Scrubber Background Track */}
@@ -198,7 +198,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                     />
                     {/* Marker Accents */}
                     {[0, 25, 50, 75, 100].map(m => (
-                        <div key={m} className={`absolute top-0 w-px h-2 bg-white/20 -translate-y-[25%]`} style={{ left: `${m}%` }} />
+                        <div key={m} className={`absolute top-0 w-px h-2 bg-white/20 -translate-y-[25%] hidden sm:block`} style={{ left: `${m}%` }} />
                     ))}
                 </div>
             </div>
@@ -210,29 +210,29 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
-                        className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-10 pb-6 pt-20 z-20"
+                        className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-4 sm:px-10 pb-2 sm:pb-6 pt-12 sm:pt-20 z-20"
                     >
                         <div className="flex items-center justify-between pointer-events-auto">
                             {/* Playback Controls */}
-                            <div className="flex items-center gap-8">
+                            <div className="flex items-center gap-4 sm:gap-8">
                                 <button
                                     onClick={togglePlay}
-                                    className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary text-white hover:text-black transition-all duration-300"
+                                    className="w-8 h-8 sm:w-12 sm:h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-primary hover:border-primary text-white hover:text-black transition-all duration-300"
                                 >
-                                    {playing ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-1" />}
+                                    {playing ? <Pause size={16} fill="currentColor" className="sm:w-5 sm:h-5" /> : <Play size={16} fill="currentColor" className="ml-1 sm:w-5 sm:h-5" />}
                                 </button>
 
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2 sm:gap-4 hidden sm:flex">
                                     <button
                                         onClick={toggleMute}
                                         className="text-white/60 hover:text-primary transition-colors"
                                     >
-                                        {muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                                        {muted ? <VolumeX size={16} className="sm:w-[18px] sm:h-[18px]" /> : <Volume2 size={16} className="sm:w-[18px] sm:h-[18px]" />}
                                     </button>
                                     <div
                                         ref={volumeRef}
                                         onClick={handleVolumeChange}
-                                        className="w-24 h-1 bg-white/10 rounded-full overflow-hidden relative cursor-pointer group/volume"
+                                        className="w-16 sm:w-24 h-1 bg-white/10 rounded-full overflow-hidden relative cursor-pointer group/volume"
                                     >
                                         <div
                                             className="absolute top-0 left-0 h-full bg-primary/40 group-hover/volume:bg-primary/60 transition-colors"
@@ -246,12 +246,12 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                             </div>
 
                             {/* Technical Icons/Status */}
-                            <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-4 sm:gap-6">
                                 <button
                                     onClick={toggleFullscreen}
-                                    className="p-2 text-white/40 hover:text-white transition-colors"
+                                    className="p-1 sm:p-2 text-white/40 hover:text-white transition-colors"
                                 >
-                                    <Maximize size={18} />
+                                    <Maximize size={16} className="sm:w-[18px] sm:h-[18px]" />
                                 </button>
                             </div>
                         </div>
@@ -260,7 +260,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                         <div
                             ref={progressRef}
                             onClick={handleProgressClick}
-                            className="absolute bottom-16 inset-x-10 h-6 cursor-pointer z-30 opacity-0"
+                            className="absolute bottom-12 sm:bottom-16 inset-x-4 sm:inset-x-10 h-6 cursor-pointer z-30 opacity-0"
                         />
                     </motion.div>
                 )}
