@@ -96,11 +96,11 @@ const ProjectDetail = () => {
                     <div className={`${project.aspectRatio === "portrait" ? "lg:col-span-7" : "w-full mb-24"}`}>
                         <div className={`w-full ${project.aspectRatio === "portrait" ? "aspect-[2/3] max-h-[90vh]" : "aspect-video"} bg-black rounded-sm overflow-hidden relative shadow-2xl group`}>
                             {project.video ? (
-                                <FuturisticVideoPlayer src={project.video} title={project.title} />
+                                <FuturisticVideoPlayer src={project.video} title={project.title} objectFit={project.aspectRatio === "portrait" || project.aspectRatio === "original" ? "contain" : "cover"} />
                             ) : project.screenshots && project.screenshots.length > 0 ? (
                                 <img
                                     src={project.screenshots[0]}
-                                    className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain" : "object-cover"}`}
+                                    className={`w-full h-full ${project.aspectRatio === "portrait" || project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"}`}
                                     alt={`${project.title} - ${project.category} Portfolio Piece by Dreamswood VFX`}
                                 />
                             ) : (
@@ -151,12 +151,12 @@ const ProjectDetail = () => {
                     {(project.video ? project.screenshots : project.screenshots.slice(1)).map((s, idx) => (
                         <motion.div
                             key={idx}
-                            className="aspect-video bg-neutral-900 rounded-sm overflow-hidden"
+                            className={`bg-neutral-900 rounded-sm overflow-hidden ${project.aspectRatio === "portrait" ? "aspect-[2/3]" : "aspect-video"}`}
                             initial={{ opacity: 0, scale: 0.95 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
                         >
-                            <img src={s} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt={`${project.title} Technical Showcase Detail - Image ${idx + 1}`} />
+                            <img src={s} className={`w-full h-full ${project.aspectRatio === "portrait" || project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale hover:grayscale-0 transition-all duration-700`} alt={`${project.title} Technical Showcase Detail - Image ${idx + 1}`} />
                         </motion.div>
                     ))}
                 </div>

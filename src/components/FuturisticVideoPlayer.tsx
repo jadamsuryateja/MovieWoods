@@ -5,9 +5,10 @@ import { Play, Pause, Volume2, VolumeX, Maximize, Activity, Cpu, Wifi, Target, I
 interface FuturisticVideoPlayerProps {
     src: string;
     title: string;
+    objectFit?: "cover" | "contain";
 }
 
-const FuturisticVideoPlayer = ({ src, title }: FuturisticVideoPlayerProps) => {
+const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVideoPlayerProps) => {
     const videoRef = useRef<HTMLVideoElement>(null);
     const progressRef = useRef<HTMLDivElement>(null);
     const volumeRef = useRef<HTMLDivElement>(null);
@@ -108,7 +109,7 @@ const FuturisticVideoPlayer = ({ src, title }: FuturisticVideoPlayerProps) => {
             <video
                 ref={videoRef}
                 src={src}
-                className="w-full h-full object-cover"
+                className={`w-full h-full ${objectFit === "contain" ? "object-contain" : "object-cover"}`}
                 playsInline
                 autoPlay
                 muted

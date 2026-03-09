@@ -4,7 +4,7 @@ import { works, categories } from "@/data/works";
 import PageTransition from "@/components/PageTransition";
 import { useCursor } from "@/context/CursorContext";
 import useSEO from "@/hooks/useSEO";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const Work = () => {
     const { category } = useParams();
@@ -25,9 +25,11 @@ const Work = () => {
 
     const currentFilter = category ? unslugify(category) : "All";
 
-    const filteredWorks = currentFilter === "All"
-        ? works
-        : works.filter(w => w.category === currentFilter);
+    const filteredWorks = useMemo(() => {
+        return currentFilter === "All"
+            ? works
+            : works.filter(w => w.category === currentFilter);
+    }, [currentFilter]);
 
     const breadcrumbSchema = {
         "@context": "https://schema.org",
@@ -161,14 +163,22 @@ const Work = () => {
                                     <Link to={`/work/${work.id}`} className="block w-full h-full">
                                         {/* Media Container */}
                                         <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-105">
-                                            {work.video ? (
+                                            {work.previewImage ? (
+                                                <img
+                                                    src={work.previewImage}
+                                                    alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
+                                                    loading="lazy"
+                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
+                                                />
+                                            ) : work.video ? (
                                                 <video
                                                     src={work.video}
                                                     autoPlay
                                                     muted
                                                     loop
                                                     playsInline
-                                                    className={`w-full h-full object-cover transition-all duration-700 ${isHovered
+                                                    poster={work.screenshots?.[0]}
+                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} transition-all duration-700 ${isHovered
                                                         ? "grayscale-0 brightness-100"
                                                         : "grayscale brightness-50"
                                                         }`}
@@ -177,7 +187,8 @@ const Work = () => {
                                                 <img
                                                     src={work.screenshots[0]}
                                                     alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
-                                                    className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
+                                                    loading="lazy"
+                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
                                                 />
                                             ) : (
                                                 <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">

@@ -198,20 +198,26 @@ const Index = () => {
                         >
                           <Link to={`/work/${project.id}`} className="block w-full h-full">
                             <div className="absolute inset-0 transition-transform duration-1000 ease-out">
-                              {project.video ? (
+                              {project.previewImage ? (
+                                <img
+                                  src={project.previewImage}
+                                  alt={project.title}
+                                  className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain px-8 py-4 bg-black" : project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} transition-all duration-700`}
+                                />
+                              ) : project.video ? (
                                 <video
                                   src={project.video}
                                   autoPlay
                                   muted
                                   loop
                                   playsInline
-                                  className="w-full h-full object-cover transition-all duration-700"
+                                  className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain px-8 py-4 bg-black" : project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} transition-all duration-700`}
                                 />
                               ) : project.screenshots && project.screenshots.length > 0 ? (
                                 <img
                                   src={project.screenshots[0]}
                                   alt={project.title}
-                                  className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain px-8 py-4" : "object-cover"} transition-all duration-700`}
+                                  className={`w-full h-full ${project.aspectRatio === "portrait" ? "object-contain px-8 py-4 bg-black" : project.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} transition-all duration-700`}
                                 />
                               ) : (
                                 <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">
