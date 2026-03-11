@@ -4,26 +4,34 @@ import { useNavigate } from "react-router-dom";
 import { useCursor } from "@/context/CursorContext";
 import { works } from "@/data/works";
 
-// Adding some nice aesthetic colors to the first few projects for the background gradient feature
+// Aesthetic gradient colors cycling across all projects
 const projectColors = [
     "#ff1a1a", // Deep Red
     "#2a75bb", // Blue
     "#1a1a1a", // Dark/Neutral
     "#e67e22", // Orange
-    "#f5f6fa"  // White/Silver
+    "#f5f6fa", // White/Silver
+    "#8e44ad", // Purple
+    "#27ae60", // Green
+    "#e74c3c", // Crimson
+    "#2980b9", // Steel Blue
+    "#f39c12", // Amber
+    "#16a085", // Teal
+    "#c0392b", // Dark Red
+    "#1abc9c", // Emerald
+    "#d35400", // Burnt Orange
+    "#7f8c8d", // Grey
+    "#2c3e50", // Midnight Blue
 ];
 
-const CAROUSEL_ITEMS = works
-    .filter(project => project.screenshots && project.screenshots.length > 0)
-    .slice(0, 5)
-    .map((project, index) => ({
-        id: project.id,
-        name: project.title,
-        description: project.category,
-        image: project.screenshots?.[0] || "",
-        video: project.video,
-        color: projectColors[index] || "#1a1a1a"
-    }));
+const CAROUSEL_ITEMS = works.map((project, index) => ({
+    id: project.id,
+    name: project.title,
+    description: project.category,
+    image: project.screenshots?.[0] || project.previewImage || "",
+    video: project.video,
+    color: projectColors[index % projectColors.length]
+}));
 
 const TikTokCarouselHero = () => {
     const navigate = useNavigate();
@@ -107,7 +115,7 @@ const TikTokCarouselHero = () => {
             {/* Section Header */}
             <div className="absolute top-32 left-8 md:top-40 md:left-24 z-30 flex flex-col pointer-events-none mix-blend-difference">
                 <p className="text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold text-white mb-2">Portfolio</p>
-                <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white">Featured Work</h2>
+                <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white">Our Works</h2>
             </div>
 
             {/* Carousel Context */}
@@ -163,11 +171,26 @@ const TikTokCarouselHero = () => {
                                     onMouseLeave={() => setCursorType("default")}
                                 >
                                     <div className="relative w-full h-full">
-                                        <img
-                                            src={item.image}
-                                            alt={item.name}
-                                            className={`absolute inset-0 w-full h-full ${works.find(w => w.id === item.id)?.aspectRatio === "portrait" ? "object-contain bg-black/40" : "object-cover"}`}
-                                        />
+                                        {item.image ? (
+                                            <img
+                                                src={item.image}
+                                                alt={item.name}
+                                                className={`absolute inset-0 w-full h-full ${works.find(w => w.id === item.id)?.aspectRatio === "portrait" ? "object-contain bg-black/40" : "object-cover"}`}
+                                            />
+                                        ) : item.video ? (
+                                            <video
+                                                src={item.video}
+                                                className={`absolute inset-0 w-full h-full ${works.find(w => w.id === item.id)?.aspectRatio === "portrait" ? "object-contain bg-black/40" : "object-cover"}`}
+                                                muted
+                                                loop
+                                                playsInline
+                                                autoPlay
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 w-full h-full bg-neutral-900 flex items-center justify-center">
+                                                <span className="text-white/20 text-xs uppercase tracking-widest font-mono">No Media</span>
+                                            </div>
+                                        )}
                                         {/* Shadow overlay at bottom */}
                                         <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
 
