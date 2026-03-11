@@ -18,17 +18,6 @@ const WorkCard = ({
     const [isHovered, setIsHovered] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
 
-    useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
-        if (isHovered) {
-            video.play().catch(() => { });
-        } else {
-            video.pause();
-            video.currentTime = 0;
-        }
-    }, [isHovered]);
-
     return (
         <motion.div
             key={work.id}
@@ -61,6 +50,7 @@ const WorkCard = ({
                         <video
                             ref={videoRef}
                             src={work.video}
+                            autoPlay
                             muted
                             loop
                             playsInline
