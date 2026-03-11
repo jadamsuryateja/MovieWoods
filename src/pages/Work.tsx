@@ -1,10 +1,120 @@
 import { useNavigate, useParams, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { works, categories } from "@/data/works";
+import { motion, AnimatePresence, Variants } from "framer-motion";
+import { works, categories, Project } from "@/data/works";
 import PageTransition from "@/components/PageTransition";
 import { useCursor } from "@/context/CursorContext";
 import useSEO from "@/hooks/useSEO";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
+
+// --- Work Card (extracted so hooks are valid) ---
+const WorkCard = ({
+    work,
+    itemVariants,
+}: {
+    work: Project;
+    itemVariants: Variants;
+}) => {
+    const { setCursorType } = useCursor();
+    const [isHovered, setIsHovered] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (isHovered) {
+            video.play().catch(() => { });
+        } else {
+            video.pause();
+            video.currentTime = 0;
+        }
+    }, [isHovered]);
+
+    return (
+        <motion.div
+            key={work.id}
+            layout
+            variants={itemVariants}
+            className="group relative aspect-[16/10] overflow-hidden rounded-sm bg-neutral-900"
+            onMouseEnter={() => {
+                setCursorType("hover");
+                setIsHovered(true);
+            }}
+            onMouseLeave={() => {
+                setCursorType("default");
+                setIsHovered(false);
+            }}
+        >
+            <Link to={`/work/${work.id}`} className="block w-full h-full">
+                {/* Media Container */}
+                <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-105">
+                    {work.previewImage ? (
+                        <img
+                            src={work.previewImage}
+                            alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
+                            loading="lazy"
+                            className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original"
+                                ? "object-contain bg-black"
+                                : "object-cover"
+                                } grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
+                        />
+                    ) : work.video ? (
+                        <video
+                            ref={videoRef}
+                            src={work.video}
+                            muted
+                            loop
+                            playsInline
+                            poster={work.screenshots?.[0]}
+                            className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original"
+                                ? "object-contain bg-black"
+                                : "object-cover"
+                                } transition-all duration-700 ${isHovered ? "grayscale-0 brightness-100" : "grayscale brightness-50"
+                                }`}
+                        />
+                    ) : work.screenshots && work.screenshots.length > 0 ? (
+                        <img
+                            src={work.screenshots[0]}
+                            alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
+                            loading="lazy"
+                            className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original"
+                                ? "object-contain bg-black"
+                                : "object-cover"
+                                } grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">
+                            <div className="w-full h-full border border-white/5 flex items-center justify-center">
+                                <span className="text-white/10 text-[10px] uppercase tracking-[0.4em] font-mono">No Preview</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
+
+                {/* Content */}
+                <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full">
+                    <div className="overflow-hidden translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                        <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            {work.category}
+                        </p>
+                        <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white">
+                            {work.title}
+                        </h3>
+                    </div>
+                </div>
+
+                {/* Corner Accent */}
+                <div className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100 transition-transform duration-500">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 19L19 5M19 5H10M19 5V14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                </div>
+            </Link>
+        </motion.div>
+    );
+};
 
 const Work = () => {
     const { category } = useParams();
@@ -142,88 +252,9 @@ const Work = () => {
                     className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 md:gap-12"
                 >
                     <AnimatePresence mode="popLayout">
-                        {filteredWorks.map((work) => {
-                            const [isHovered, setIsHovered] = useState(false);
-
-                            return (
-                                <motion.div
-                                    key={work.id}
-                                    layout
-                                    variants={itemVariants}
-                                    className="group relative aspect-[16/10] overflow-hidden rounded-sm bg-neutral-900"
-                                    onMouseEnter={() => {
-                                        setCursorType("hover");
-                                        setIsHovered(true);
-                                    }}
-                                    onMouseLeave={() => {
-                                        setCursorType("default");
-                                        setIsHovered(false);
-                                    }}
-                                >
-                                    <Link to={`/work/${work.id}`} className="block w-full h-full">
-                                        {/* Media Container */}
-                                        <div className="absolute inset-0 transition-transform duration-1000 ease-out group-hover:scale-105">
-                                            {work.previewImage ? (
-                                                <img
-                                                    src={work.previewImage}
-                                                    alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
-                                                    loading="lazy"
-                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
-                                                />
-                                            ) : work.video ? (
-                                                <video
-                                                    src={work.video}
-                                                    autoPlay
-                                                    muted
-                                                    loop
-                                                    playsInline
-                                                    poster={work.screenshots?.[0]}
-                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} transition-all duration-700 ${isHovered
-                                                        ? "grayscale-0 brightness-100"
-                                                        : "grayscale brightness-50"
-                                                        }`}
-                                                />
-                                            ) : work.screenshots && work.screenshots.length > 0 ? (
-                                                <img
-                                                    src={work.screenshots[0]}
-                                                    alt={`${work.title} | ${work.category} Visual Effects Project by Dreamswood`}
-                                                    loading="lazy"
-                                                    className={`w-full h-full ${work.aspectRatio === "portrait" || work.aspectRatio === "original" ? "object-contain bg-black" : "object-cover"} grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700`}
-                                                />
-                                            ) : (
-                                                <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-12">
-                                                    <div className="w-full h-full border border-white/5 flex items-center justify-center">
-                                                        <span className="text-white/10 text-[10px] uppercase tracking-[0.4em] font-mono">No Preview</span>
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        {/* Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
-
-                                        {/* Content */}
-                                        <div className="absolute inset-x-0 bottom-0 p-8 flex flex-col justify-end h-full">
-                                            <div className="overflow-hidden translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                                <p className="text-[10px] uppercase tracking-[0.3em] font-bold text-primary mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                                                    {work.category}
-                                                </p>
-                                                <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tight text-white">
-                                                    {work.title}
-                                                </h3>
-                                            </div>
-                                        </div>
-
-                                        {/* Corner Accent */}
-                                        <div className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 scale-0 group-hover:scale-100 transition-transform duration-500">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M5 19L19 5M19 5H10M19 5V14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                            </svg>
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            );
-                        })}
+                        {filteredWorks.map((work) => (
+                            <WorkCard key={work.id} work={work} itemVariants={itemVariants} />
+                        ))}
                     </AnimatePresence>
                 </motion.div>
             </div>

@@ -41,12 +41,6 @@ export const works: Project[] = [
         video: "/assets/works/commercial_01.mp4"
     },
     {
-        id: "comm-07",
-        title: "Corporate Identity Motion",
-        category: "Commercials",
-        screenshots: ["/assets/works/commercials_07.webp"]
-    },
-    {
         id: "comm-08",
         title: "Cinematic Brand Story",
         category: "Commercials",
