@@ -25,7 +25,7 @@ const Index = () => {
   const { setCursorType } = useCursor();
 
   useSEO({
-    title: "Award-Winning Visual Effects & Post-Production Studio",
+    title: "Dreamswood | Award-Winning Visual Effects & Post-Production Studio",
     description: "Dreamswood Vfx is a world-class visual effects and animation studio delivering groundbreaking VFX, CGI, and immersive experiences for film, TV, and advertising.",
   });
 

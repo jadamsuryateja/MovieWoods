@@ -19,7 +19,7 @@ const useSEO = ({
 }: SEOProps) => {
     useEffect(() => {
         // Update Document Title
-        const fullTitle = `${title} | Dreamswood`;
+        const fullTitle = title.includes('Dreamswood') ? title : `${title} | Dreamswood`;
         document.title = fullTitle;
 
         // Update Meta Description
