@@ -60,7 +60,7 @@ export const works: Project[] = [
     },
     {
         id: "comm-05",
-        title: "Advanced Digital Compositing",
+        title: "Fire and Smoke Simulation",
         category: "Commercials",
         video: "/commercials_05.mp4"
     },
