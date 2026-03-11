@@ -78,7 +78,7 @@ export const works: Project[] = [
     },
     {
         id: "film-tv-03",
-        title: "Spider-Man Motion Graphic",
+        title: "Story Telling and 2D Art",
         category: "Film & TV",
         video: "/assets/works/film and tv_03.mp4"
     },
@@ -96,19 +96,19 @@ export const works: Project[] = [
     },
     {
         id: "film-tv-06",
-        title: "Environmental Clean Plate & Nature VFX",
+        title: "Animation",
         category: "Film & TV",
         video: "/film and tv_06.mp4"
     },
     {
         id: "film-tv-07",
-        title: "WWII Radial Engine – Hero Asset Showcase",
+        title: "Look Development",
         category: "Film & TV",
         video: "/film and tv_07.mp4"
     },
     {
         id: "film-tv-08",
-        title: "Hyper-Realistic Macro Nature – Unreal Engine & AI",
+        title: "Environment",
         category: "Film & TV",
         video: "/film and tv_08.mp4"
     }
