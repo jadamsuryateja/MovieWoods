@@ -140,7 +140,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
 
     return (
         <div
-            className="relative bg-black w-full overflow-hidden select-none"
+            className="relative bg-transparent w-full overflow-hidden select-none"
             style={{ aspectRatio: "16/9" }}
             onMouseMove={() => setShowHUD(true)}
             onMouseLeave={() => playing && setShowHUD(false)}
@@ -171,7 +171,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute top-0 inset-x-0 z-20 pointer-events-none bg-gradient-to-b from-black/70 to-transparent px-5 pt-4 pb-8 flex items-start justify-between"
+                        className="absolute top-0 inset-x-0 z-20 pointer-events-none bg-transparent px-5 pt-4 pb-8 flex items-start justify-between"
                     >
                         <div className="flex flex-col gap-1">
                             <div className="flex items-center gap-2">
@@ -272,7 +272,7 @@ const FuturisticVideoPlayer = ({ src, title, objectFit = "cover" }: FuturisticVi
             </div>
 
             {/* Zone 3: Bottom Control Bar */}
-            <div className="absolute z-30 inset-x-0 bottom-0 h-[52px] bg-black/80 backdrop-blur-md border-t border-white/[0.06] flex items-center px-4 gap-3 sm:gap-5">
+            <div className="absolute z-30 inset-x-0 bottom-0 h-[52px] bg-transparent flex items-center px-4 gap-3 sm:gap-5">
 
                 {/* Play / Pause — Hexagon */}
                 <button

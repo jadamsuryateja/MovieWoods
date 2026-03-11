@@ -64,7 +64,7 @@ const VideoPlayer = ({ src, title, onPlayStateChange }: VideoPlayerProps) => {
 
   return (
     <div
-      className="relative group bg-secondary aspect-video w-full max-w-5xl mx-auto overflow-hidden"
+      className="relative group bg-transparent aspect-video w-full max-w-5xl mx-auto overflow-hidden"
       onMouseMove={() => setShowControls(true)}
       onMouseLeave={() => playing && setShowControls(false)}
       data-cursor="PLAY"
@@ -87,7 +87,7 @@ const VideoPlayer = ({ src, title, onPlayStateChange }: VideoPlayerProps) => {
         initial={false}
         animate={{ opacity: showControls ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-background/80 to-transparent px-5 pb-4 pt-12"
+        className="absolute bottom-0 inset-x-0 bg-transparent px-5 pb-4 pt-12"
       >
         {/* Progress bar */}
         <div
