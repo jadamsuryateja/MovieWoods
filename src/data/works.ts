@@ -41,18 +41,6 @@ export const works: Project[] = [
         video: "/assets/works/commercial_01.mp4"
     },
     {
-        id: "comm-02",
-        title: "Dynamic Product Showcase",
-        category: "Commercials",
-        screenshots: ["/assets/works/commercials_02.webp"]
-    },
-    {
-        id: "comm-06",
-        title: "Minimalist Product Flow",
-        category: "Commercials",
-        screenshots: ["/assets/works/commercials_06.webp"]
-    },
-    {
         id: "comm-07",
         title: "Corporate Identity Motion",
         category: "Commercials",
@@ -111,6 +99,24 @@ export const works: Project[] = [
         title: "T-Rex River Chase VFX Breakdown",
         category: "Film & TV",
         video: "/film and tv_05.mp4"
+    },
+    {
+        id: "film-tv-06",
+        title: "Environmental Clean Plate & Nature VFX",
+        category: "Film & TV",
+        video: "/film and tv_06.mp4"
+    },
+    {
+        id: "film-tv-07",
+        title: "WWII Radial Engine – Hero Asset Showcase",
+        category: "Film & TV",
+        video: "/film and tv_07.mp4"
+    },
+    {
+        id: "film-tv-08",
+        title: "Hyper-Realistic Macro Nature – Unreal Engine & AI",
+        category: "Film & TV",
+        video: "/film and tv_08.mp4"
     }
 ];
 
